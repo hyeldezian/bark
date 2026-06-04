@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harlie Yeldezian — For BARK</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,500;1,9..144,700&family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --orange: #E8470A;
+    --orange-light: #FF6B2B;
+    --cream: #FAF6EE;
+    --ink: #1A1612;
+    --mid: #7A6E64;
+    --warm-gray: #EDE8DE;
+    --green: #2D5A3D;
+    --yellow: #F5C842;
+    --blue: #1B3A6B;
+  }
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 60px; }
+
+  /* STICKY NAV */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    background: rgba(26,22,18,0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sticky-nav.visible { transform: translateY(0); }
+  .nav-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--cream);
+    letter-spacing: 0.06em;
+  }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.18s;
+    position: relative;
+    padding-bottom: 3px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: var(--orange);
+    transition: width 0.22s ease;
+  }
+  .nav-link:hover { color: var(--cream); }
+  .nav-link.active { color: var(--orange); }
+  .nav-link.active::after { width: 100%; }
+  .nav-toggle {
+    display: none;
+    background: none; border: none;
+    color: var(--orange);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .nav-links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(26,22,18,0.97);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-links.open { max-height: 320px; }
+    .nav-link { padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-toggle { display: block; }
+  }
+
+  /* A BIT MORE ABOUT ME */
+  .more-section {
+    background: var(--cream);
+    padding: 88px 56px;
+    position: relative;
+  }
+  @media (max-width: 768px) { .more-section { padding: 56px 28px; } }
+  .more-section .section-no { color: var(--orange); margin-bottom: 22px; }
+  .more-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3.8vw, 48px);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.12;
+    margin-bottom: 12px;
+  }
+  .more-h2 em { font-weight: 300; font-style: italic; color: var(--orange); }
+  .more-lead {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--mid);
+    margin-bottom: 44px;
+    max-width: 600px;
+  }
+  .more-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 768px) { .more-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .more-block { margin-bottom: 32px; }
+  .more-block:last-child { margin-bottom: 0; }
+  .more-block-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid var(--border, #d9ded8);
+  }
+  .more-p {
+    font-size: 13px;
+    line-height: 1.78;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .more-p:last-child { margin-bottom: 0; }
+  .more-p strong { color: var(--ink); font-weight: 600; }
+
+  /* AI panel — distinct dark background to separate it */
+  .ai-panel {
+    background: var(--ink);
+    padding: 32px;
+    border-radius: 4px;
+  }
+  .ai-panel .more-p { color: rgba(255,255,255,0.7); }
+  .ai-panel .more-p strong { color: var(--cream); }
+  .toolkit-label-head {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+  }
+  @media (hover: hover) { body { cursor: none; } }
+
+  /* CURSOR — desktop only */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--orange);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: multiply;
+    display: none;
+  }
+  @media (hover: hover) { .cursor { display: block; } }
+  .cursor.big { width: 56px; height: 56px; background: var(--yellow); }
+
+  /* IMG PLACEHOLDER */
+  .img-placeholder {
+    background: var(--warm-gray);
+    border: 2px dashed #ccc8be;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--mid);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(0,0,0,0.025) 10px,rgba(0,0,0,0.025) 11px);
+  }
+  .img-placeholder .ph-icon { font-size: 26px; opacity: 0.35; position: relative; }
+  .img-placeholder .ph-label { position: relative; z-index: 1; }
+
+  /* WALLY EGG — desktop hover only */
+  .wally-egg { position: relative; display: inline-block; }
+  .wally-egg .wally-pop {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0) rotate(-8deg);
+    background: var(--ink);
+    color: var(--yellow);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 7px 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 200;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 90vw;
+  }
+  .wally-egg .wally-pop::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--ink);
+  }
+  @media (hover: hover) {
+    .wally-egg:hover .wally-pop { transform: translateX(-50%) scale(1) rotate(-1deg); }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; grid-template-rows: auto auto; min-height: auto; }
+  }
+
+  .hero-left {
+    background: var(--ink);
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    min-height: 60svh;
+  }
+  @media (max-width: 768px) {
+    .hero-left { padding: 40px 28px 48px; min-height: auto; }
+  }
+
+  .hero-tag {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 112px);
+    line-height: 0.92;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+    margin: 32px 0 16px;
+  }
+  @media (max-width: 768px) { .hero-name { font-size: clamp(56px, 14vw, 80px); } }
+
+  .hero-tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 52px);
+    color: var(--orange);
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 768px) { .hero-tagline { font-size: clamp(24px, 7vw, 40px); } }
+
+  .hero-sub {
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.14em;
+    line-height: 1.9;
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    margin-top: 32px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint::before {
+    content: '';
+    display: block;
+    width: 28px; height: 1px;
+    background: var(--orange);
+    animation: scrollline 2s ease-in-out infinite;
+  }
+  @keyframes scrollline { 0%,100%{width:28px} 50%{width:10px} }
+
+  .psst-note {
+    position: absolute;
+    left: 8px; top: 42%;
+    writing-mode: vertical-rl;
+    font-size: 8px;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: default;
+    transition: color 0.2s;
+    user-select: none;
+  }
+  @media (hover: hover) { .psst-note:hover { color: var(--orange); } }
+  @media (max-width: 768px) { .psst-note { display: none; } }
+
+  .hero-right {
+    background: var(--orange);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px 40px 48px;
+    overflow: visible;
+    min-height: 50svh;
+  }
+  @media (max-width: 768px) {
+    .hero-right { padding: 28px; min-height: 360px; }
+  }
+
+  .hero-img-area {
+    position: absolute;
+    inset: 0; bottom: 170px;
+  }
+  .hero-img-area .img-placeholder {
+    height: 100%; border: none;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .hero-right-bottom { position: relative; z-index: 2; }
+  .wally-intro-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    padding-top: 24px;
+  }
+  .wally-name-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 56px);
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .wally-name-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    line-height: 1.75;
+  }
+
+  .toybox-egg {
+    position: absolute;
+    top: 16px; right: 16px;
+    z-index: 5;
+  }
+  .toybox-egg .toy-trigger {
+    width: 38px; height: 38px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @media (hover: hover) {
+    .toybox-egg:hover .toy-trigger { transform: scale(1.25) rotate(15deg); }
+    .toybox-egg:hover .toy-pop { transform: translateY(-50%) scale(1); }
+  }
+  .toybox-egg .toy-pop {
+    position: absolute;
+    right: calc(100% + 10px); top: 50%;
+    transform: translateY(-50%) scale(0);
+    background: var(--ink);
+    color: var(--yellow);
+    font-size: 10px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+    line-height: 1.7;
+  }
+
+  /* ===== MARQUEE ===== */
+  .marquee-strip { background: var(--yellow); padding: 16px 0; overflow: hidden; white-space: nowrap; }
+  .marquee-inner {
+    display: inline-flex; gap: 40px;
+    animation: marquee 24s linear infinite;
+  }
+  .marquee-inner span { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.07em; color: var(--ink); }
+  .marquee-inner span.dot { color: var(--orange); }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ===== ABOUT ===== */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+  }
+  @media (max-width: 768px) {
+    .about { grid-template-columns: 1fr; min-height: auto; }
+  }
+
+  .about-left {
+    background: var(--cream);
+    padding: 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--warm-gray);
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .about-left { padding: 56px 28px; border-right: none; border-bottom: 1px solid var(--warm-gray); }
+  }
+
+  .section-no {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 22px;
+  }
+
+  .about-left h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3.5vw, 46px);
+    font-weight: 700;
+    line-height: 1.12;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .about-left h2 em { font-weight: 300; font-style: italic; color: var(--orange); }
+
+  .about-left p {
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: var(--mid);
+    max-width: 440px;
+    margin-bottom: 14px;
+  }
+  .about-left p strong { color: var(--ink); font-weight: 500; }
+
+  /* remote badge */
+  .remote-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--warm-gray);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    width: fit-content;
+  }
+  .remote-badge::before { content: '●'; color: var(--orange); font-size: 7px; }
+
+  .paw-egg {
+    position: absolute;
+    right: -16px; top: 48%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  @media (max-width: 768px) {
+    .paw-egg {
+      position: relative;
+      right: auto; top: auto;
+      transform: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .paw-egg .paw-pop {
+      position: relative;
+      right: auto; top: auto;
+      transform: none !important;
+      background: var(--ink);
+      color: var(--yellow);
+      font-size: 10px;
+      padding: 6px 10px;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+      display: none;
+    }
+    .paw-egg.touch-active .paw-pop { display: block !important; }
+  }
+  .paw-egg .paw-btn {
+    width: 32px; height: 32px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 2px 14px rgba(232,71,10,0.28);
+  }
+  @media (hover: hover) {
+    .paw-egg:hover .paw-btn { transform: scale(1.3) rotate(12deg); }
+    .paw-egg:hover .paw-pop { transform: translateY(-50%) scale(1); }
+  }
+  .paw-egg .paw-pop {
+    position: absolute;
+    right: calc(100% + 12px); top: 50%;
+    transform: translateY(-50%) scale(0);
+    background: var(--ink); color: var(--yellow);
+    font-size: 10px; padding: 8px 12px;
+    white-space: nowrap; letter-spacing: 0.06em;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none; line-height: 1.6;
+  }
+
+  /* about me placeholder */
+  .about-me-placeholder {
+    margin-top: 20px;
+    padding: 16px 18px;
+    border: 1px dashed var(--warm-gray);
+    font-size: 10px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .about-right {
+    background: var(--green);
+    padding: 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 26px;
+  }
+  @media (max-width: 768px) { .about-right { padding: 48px 28px; } }
+
+  .stat-item .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 58px;
+    color: var(--yellow);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .stat-item .stat-label {
+    font-size: 9px; letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+  .stat-item .stat-desc {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+  .stat-divider { height: 1px; background: rgba(255,255,255,0.1); }
+
+  /* ===== TOOLKIT ===== */
+  .toolkit-section {
+    background: var(--ink);
+    padding: 88px 56px;
+    position: relative;
+  }
+  @media (max-width: 768px) { .toolkit-section { padding: 56px 28px; } }
+
+  .toolkit-section::before {
+    content: 'TOOLS';
+    position: absolute;
+    right: -30px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 240px;
+    color: rgba(255,255,255,0.022);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .toolkit-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3.8vw, 50px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.15;
+    max-width: 580px;
+    margin-bottom: 14px;
+  }
+  .toolkit-section h2 em { font-style: italic; font-weight: 300; color: var(--orange); }
+
+  .toolkit-desc {
+    font-size: 12px;
+    color: var(--mid);
+    max-width: 540px;
+    line-height: 1.82;
+    margin-bottom: 40px;
+  }
+  .toolkit-desc strong { color: rgba(255,255,255,0.65); font-weight: 400; }
+
+  .toolkit-group { margin-bottom: 28px; }
+  .toolkit-group-label {
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .toolkit-group-label.ai-label { color: var(--orange); }
+  .toolkit-group-label.adobe-label { color: #9BB4E8; }
+  .toolkit-group-label.other-label { color: rgba(255,255,255,0.3); }
+
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tool-tag {
+    padding: 7px 13px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.18s;
+    border: 1px solid;
+  }
+  @media (hover: hover) { body { cursor: none; } .tool-tag { cursor: none; } }
+  .tool-tag.ai { border-color: rgba(232,71,10,0.4); color: var(--orange); background: rgba(232,71,10,0.05); }
+  @media (hover: hover) { .tool-tag.ai:hover { background: rgba(232,71,10,0.12); border-color: var(--orange); } }
+  .tool-tag.adobe { border-color: rgba(155,180,232,0.3); color: #9BB4E8; background: rgba(155,180,232,0.04); }
+  @media (hover: hover) { .tool-tag.adobe:hover { background: rgba(155,180,232,0.1); border-color: #9BB4E8; } }
+  .tool-tag.other { border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); }
+  @media (hover: hover) { .tool-tag.other:hover { border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.65); } }
+
+  .ai-belief {
+    max-width: 540px;
+    padding: 26px 30px;
+    border-left: 3px solid var(--orange);
+    background: rgba(255,255,255,0.03);
+    margin-top: 36px;
+  }
+  .ai-belief p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--cream);
+    font-weight: 300;
+    line-height: 1.78;
+  }
+  .ai-belief p strong { font-style: normal; font-weight: 700; color: var(--yellow); }
+
+  .wally-egg-toolkit {
+    position: absolute;
+    bottom: 40px; right: 56px;
+    cursor: default;
+  }
+  @media (max-width: 768px) {
+    .wally-egg-toolkit {
+      position: relative;
+      bottom: auto; right: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .wally-egg-toolkit .pop {
+      position: relative;
+      bottom: auto; right: auto;
+      transform: none !important;
+      background: var(--yellow);
+      color: var(--ink);
+      font-size: 10px;
+      padding: 6px 10px;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+      display: none;
+    }
+    .wally-egg-toolkit.touch-active .pop { display: block !important; }
+  }
+  .wally-egg-toolkit .trigger {
+    font-size: 10px; letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.25);
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  @media (hover: hover) { .wally-egg-toolkit:hover .trigger { color: var(--orange); } }
+  .wally-egg-toolkit .pop {
+    position: absolute;
+    bottom: calc(100% + 10px); right: 0;
+    background: var(--yellow); color: var(--ink);
+    font-size: 10px; padding: 8px 14px;
+    white-space: nowrap;
+    transform: scale(0) rotate(3deg);
+    transform-origin: bottom right;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+    letter-spacing: 0.06em; line-height: 1.6;
+  }
+  @media (hover: hover) { .wally-egg-toolkit:hover .pop { transform: scale(1) rotate(-1deg); } }
+
+  /* ===== WORK ===== */
+  .work-section { padding: 88px 56px; background: var(--cream); }
+  @media (max-width: 768px) { .work-section { padding: 56px 28px; } }
+
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .work-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6.5vw, 80px);
+    color: var(--ink); letter-spacing: 0.02em; line-height: 1;
+  }
+  .view-all {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--orange); text-decoration: none;
+    border-bottom: 1px solid var(--orange); padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  @media (hover: hover) { .view-all:hover { opacity: 0.6; } }
+
+  .work-subhead {
+    font-size: 12px; color: var(--mid);
+    line-height: 1.78; max-width: 580px;
+    margin-bottom: 44px;
+  }
+  .work-subhead a { color: var(--orange); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .work-clicknote {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 0.06em;
+    margin: -28px 0 44px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 768px) {
+    .work-grid { grid-template-columns: 1fr 1fr; }
+    .work-item { grid-column: span 1 !important; }
+    .work-item:last-child { grid-column: span 2 !important; }
+  }
+  @media (max-width: 480px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .work-item, .work-item:last-child { grid-column: span 1 !important; }
+  }
+
+  .work-item {
+    position: relative; overflow: hidden;
+    background: var(--warm-gray);
+    cursor: pointer;
+  }
+  .work-thumb {
+    width: 100%; aspect-ratio: 4/3;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    overflow: hidden;
+  }
+  @media (hover: hover) { .work-item:hover .work-thumb { transform: scale(1.04); } }
+
+  .work-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px;
+    background: linear-gradient(transparent, rgba(26,22,18,0.88));
+    transform: translateY(100%);
+    transition: transform 0.28s ease;
+  }
+  @media (hover: hover) { .work-item:hover .work-info { transform: translateY(0); } }
+  @media (hover: none) { .work-info { transform: translateY(0); background: linear-gradient(transparent, rgba(26,22,18,0.72)); } }
+
+  .work-title { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 700; color: var(--cream); line-height: 1.2; }
+  .work-tag { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--yellow); margin-top: 2px; }
+
+  .wally-corner {
+    position: absolute;
+    top: 10px; right: 10px;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.18s;
+  }
+  @media (hover: hover) { .work-item:hover .wally-corner { opacity: 1; } }
+  @media (hover: none) { .wally-corner { opacity: 0; } }
+  .wally-bubble {
+    background: var(--yellow); color: var(--ink);
+    font-size: 9px; padding: 4px 9px;
+    letter-spacing: 0.05em; white-space: nowrap;
+    transform: scale(0) rotate(5deg);
+    transform-origin: top right;
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1) 0.08s;
+    line-height: 1.4;
+  }
+  @media (hover: hover) { .work-item:hover .wally-bubble { transform: scale(1) rotate(-2deg); } }
+
+  /* grid layout desktop */
+  @media (min-width: 769px) {
+    .work-item:nth-child(1) { grid-column: span 7; }
+    .work-item:nth-child(2) { grid-column: span 5; }
+    .work-item:nth-child(3) { grid-column: span 4; }
+    .work-item:nth-child(4) { grid-column: span 4; }
+    .work-item:nth-child(5) { grid-column: span 4; }
+    .work-item:nth-child(6) { grid-column: span 6; }
+    .work-item:nth-child(7) { grid-column: span 6; }
+    .work-item:nth-child(8) { grid-column: span 12; }
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(26,22,18,0.92);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    background: var(--cream);
+    max-width: 840px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    position: relative; padding: 44px;
+  }
+  @media (max-width: 768px) { .lightbox-inner { padding: 28px 20px; } }
+  .lightbox-close {
+    position: absolute; top: 14px; right: 18px;
+    font-size: 20px; cursor: pointer;
+    color: var(--mid); background: none; border: none;
+    transition: color 0.15s;
+  }
+  @media (hover: hover) { .lightbox-close:hover { color: var(--orange); } }
+  .lightbox-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--ink); letter-spacing: 0.02em; margin-bottom: 4px; }
+  .lightbox-tag { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 22px; }
+  .lightbox-images { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+  @media (max-width: 480px) { .lightbox-images { grid-template-columns: 1fr; } }
+  .lightbox-images .img-placeholder { aspect-ratio: 4/3; }
+  .lightbox-desc { font-size: 12px; color: var(--mid); line-height: 1.8; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--warm-gray); }
+
+  /* ===== CREATIVE ===== */
+  .creative-section {
+    background: var(--orange);
+    padding: 88px 56px;
+    position: relative;
+  }
+  @media (max-width: 768px) { .creative-section { padding: 56px 28px; } }
+
+  .creative-section::after {
+    content: '';
+    position: absolute; bottom: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border: 52px solid rgba(255,255,255,0.07);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .creative-section .section-no { color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+  .creative-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 7vw, 88px);
+    color: var(--cream); letter-spacing: 0.02em;
+    line-height: 0.95; margin-bottom: 24px;
+  }
+  .creative-section h2 em {
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-weight: 300;
+    display: block; font-size: 0.52em;
+    letter-spacing: 0; color: var(--yellow); line-height: 1.3;
+  }
+  .creative-desc {
+    font-size: 12.5px; color: rgba(255,255,255,0.75);
+    max-width: 480px; line-height: 1.8; margin-bottom: 40px;
+  }
+
+  .creative-placeholder {
+    background: rgba(0,0,0,0.13);
+    border: 2px dashed rgba(255,255,255,0.26);
+    min-height: 360px;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+    transition: background 0.2s;
+  }
+  @media (hover: hover) { .creative-placeholder:hover { background: rgba(0,0,0,0.18); } }
+  .creative-placeholder .ph-big { font-size: 48px; opacity: 0.35; }
+
+  /* paw circle wally reveal */
+  .paw-circle-egg {
+    position: absolute;
+    top: -20px; right: 40px;
+    width: 56px; height: 56px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 5;
+  }
+  @media (hover: hover) {
+    .paw-circle-egg:hover { transform: scale(1.2) rotate(-10deg); }
+    .paw-circle-egg:hover .paw-circle-pop { transform: scale(1); }
+  }
+  .paw-circle-pop {
+    position: absolute;
+    right: 0; top: calc(100% + 10px);
+    transform: scale(0);
+    transform-origin: top right;
+    background: var(--ink); color: var(--yellow);
+    font-size: 10px; padding: 8px 12px;
+    white-space: nowrap; letter-spacing: 0.06em;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none; line-height: 1.6;
+    z-index: 200;
+  }
+
+  /* ===== CLOSE ===== */
+  .close-section {
+    background: var(--ink);
+    padding: 88px 56px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px; align-items: start;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .close-section { grid-template-columns: 1fr; padding: 56px 28px 0; gap: 40px; }
+  }
+
+  .close-left h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 4vw, 50px);
+    font-weight: 700; color: var(--cream);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .close-left h2 em { font-weight: 300; font-style: italic; color: var(--orange); }
+  .close-left p { font-size: 12px; color: var(--mid); line-height: 1.82; max-width: 380px; }
+
+  .close-right { display: flex; flex-direction: column; gap: 10px; }
+  .cta-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 17px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream); text-decoration: none;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: all 0.18s;
+  }
+  @media (hover: hover) { .cta-link:hover { background: var(--orange); border-color: var(--orange); } }
+  .cta-link.primary {
+    background: var(--orange); border-color: var(--orange);
+    font-size: 11px; padding: 20px;
+  }
+  @media (hover: hover) { .cta-link.primary:hover { background: var(--orange-light); border-color: var(--orange-light); } }
+  .cta-link .arrow { transition: transform 0.18s; }
+  @media (hover: hover) { .cta-link:hover .arrow { transform: translateX(4px); } }
+
+  .wally-aside {
+    font-size: 10px; color: rgba(255,255,255,0.18);
+    letter-spacing: 0.07em; margin-top: 4px;
+    padding-left: 4px; font-style: italic;
+  }
+  .wally-aside a { color: var(--yellow); text-decoration: none; opacity: 0.65; transition: opacity 0.15s; }
+  @media (hover: hover) { .wally-aside a:hover { opacity: 1; } }
+
+  .footer-signoff {
+    grid-column: span 2;
+    text-align: center;
+    padding: 28px;
+    margin-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+  @media (max-width: 768px) { .footer-signoff { grid-column: span 1; } }
+  .signoff-text {
+    font-size: 10px; color: rgba(255,255,255,0.18);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  @media (hover: hover) { .footer-signoff:hover .signoff-text { color: var(--yellow); } }
+  .signoff-pop {
+    position: absolute;
+    bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: var(--yellow); color: var(--ink);
+    font-size: 10px; padding: 8px 16px;
+    white-space: nowrap; letter-spacing: 0.06em;
+    transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+  @media (hover: hover) { .footer-signoff:hover .signoff-pop { transform: translateX(-50%) scale(1) rotate(-1deg); } }
+
+  /* TOUCH ACTIVE — mirrors hover states for mobile */
+  .wally-egg.touch-active .wally-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
+  .paw-egg.touch-active .paw-btn { transform: scale(1.3) rotate(12deg); }
+  .paw-egg.touch-active .paw-pop { transform: translateY(-50%) scale(1) !important; }
+  .toybox-egg.touch-active .toy-trigger { transform: scale(1.25) rotate(15deg); }
+  .toybox-egg.touch-active .toy-pop { transform: translateY(-50%) scale(1) !important; }
+  .wally-egg-toolkit.touch-active .trigger { color: var(--yellow); }
+  .wally-egg-toolkit.touch-active .pop { transform: scale(1) rotate(-1deg) !important; }
+  .paw-circle-egg.touch-active { transform: scale(1.2) rotate(-10deg); }
+  .paw-circle-egg.touch-active .paw-circle-pop { transform: scale(1) !important; }
+  .footer-signoff.touch-active .signoff-text { color: var(--yellow); }
+  .footer-signoff.touch-active .signoff-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
+  .work-item.touch-active .work-info { transform: translateY(0) !important; }
+  .work-item.touch-active .wally-corner { opacity: 1; }
+  .work-item.touch-active .wally-bubble { transform: scale(1) rotate(-2deg) !important; }
+  /* about me collapsible */
+  .about-me-collapsible { margin-top: 20px; }
+  .about-me-toggle {
+    background: none;
+    border: 1px solid var(--warm-gray);
+    color: var(--orange);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.18s;
+    width: 100%;
+    text-align: left;
+  }
+  .about-me-toggle:hover { background: var(--warm-gray); }
+  .about-me-content { display: none; padding: 16px 0 0; }
+  .about-me-content.open { display: block; }
+  .about-me-content p { font-size: 12px; line-height: 1.8; color: var(--mid); margin-bottom: 10px; }
+  .about-me-content p:last-child { margin-bottom: 0; }
+
+  /* creative header row */
+  .creative-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 0;
+  }
+
+  /* CLIENT TICKER STRIP */
+  .client-strip {
+    background: var(--ink);
+    padding: 20px 0;
+    overflow: hidden;
+  }
+  .client-strip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    padding: 0 24px 12px;
+  }
+  .client-ticker-wrap { overflow: hidden; white-space: nowrap; }
+  .client-ticker-inner {
+    display: inline-flex;
+    gap: 20px;
+    animation: clientticker 60s linear infinite;
+  }
+  .client-ticker-inner span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.55);
+  }
+  .client-ticker-inner .cdot {
+    color: var(--orange);
+    font-size: 10px;
+  }
+  @keyframes clientticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* FADE UP */
+  .fade-up { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up:nth-child(2){transition-delay:0.1s}
+  .fade-up:nth-child(3){transition-delay:0.2s}
+  .fade-up:nth-child(4){transition-delay:0.3s}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="nav-name">Harlie Yeldezian</div>
+  <div class="nav-links">
+    <a href="#who" class="nav-link" data-section="who">Who</a>
+    <a href="#work" class="nav-link" data-section="work">Selected Work</a>
+    <a href="#made" class="nav-link" data-section="made">Something I Made</a>
+    <a href="#more" class="nav-link" data-section="more">A Bit More About Me</a>
+    <a href="#talk" class="nav-link" data-section="talk">Let's Talk</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="menu">●●●</button>
+</nav>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <div class="lightbox-title" id="lb-title"></div>
+    <div class="lightbox-tag" id="lb-tag"></div>
+    <div class="lightbox-desc" id="lb-desc"></div>
+    <div class="lightbox-images" id="lb-images"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">For BARK &nbsp;·&nbsp; 2026</div>
+    <div>
+      <div class="hero-name">Harlie Yeldezian</div>
+      <div class="hero-tagline">You Had Me At Dogs.</div>
+    </div>
+    <div>
+      <div class="hero-sub">
+        Art Director &nbsp;·&nbsp; Designer &nbsp;·&nbsp; Strategist<br>
+        Greater Philadelphia &nbsp;·&nbsp; Remote since 2020
+      </div>
+      <div class="scroll-hint">Scroll down</div>
+    </div>
+    <div class="psst-note wally-egg">
+      psst. there are dogs hidden in here.
+      <div class="wally-pop">you have been warned!! obv!</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-area">
+      <div class="img-placeholder">
+        <div class="ph-icon">📸</div>
+        <div class="ph-label">Photo of Harlie<br>drop image here</div>
+      </div>
+    </div>
+    <div class="hero-right-bottom">
+      <div class="wally-intro-text">and this is my colleague,</div>
+      <div class="wally-name-big">Wally</div>
+      <div class="wally-name-sub">
+        miniature longhair piebald dachshund
+      </div>
+    </div>
+    <div class="toybox-egg">
+      <div class="toy-trigger">🐾</div>
+      <div class="toy-pop">wally's toy box is almost<br>entirely BARK!!</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>AI-Assisted Creative</span><span class="dot">✦</span>
+    <span>Campaign Strategy</span><span class="dot">✦</span>
+    <span>Brand + Identity</span><span class="dot">✦</span>
+    <span>Motion + Video</span><span class="dot">✦</span>
+    <span>Packaging</span><span class="dot">✦</span>
+    <span>Copywriting</span><span class="dot">✦</span>
+    <span>Voice Acting</span><span class="dot">✦</span>
+    <span>Short-Form Content</span><span class="dot">✦</span>
+    <span>Conceptual Thinking</span><span class="dot">✦</span>
+    <span>Art Direction</span><span class="dot">✦</span>
+    <span>AI-Assisted Creative</span><span class="dot">✦</span>
+    <span>Campaign Strategy</span><span class="dot">✦</span>
+    <span>Brand + Identity</span><span class="dot">✦</span>
+    <span>Motion + Video</span><span class="dot">✦</span>
+    <span>Packaging</span><span class="dot">✦</span>
+    <span>Copywriting</span><span class="dot">✦</span>
+    <span>Voice Acting</span><span class="dot">✦</span>
+    <span>Short-Form Content</span><span class="dot">✦</span>
+    <span>Conceptual Thinking</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- WHO -->
+<section class="about" id="who">
+  <div class="about-left">
+    <div class="section-no">01 &nbsp;/&nbsp; Who</div>
+    <h2>Multi-passionate <em>creative.</em></h2>
+    <p>I believe life is better when things work well and look good. I'm a designer, art director, and strategist with 9+ years of full-service creative experience. I've made work for federal agencies, DTC brands, sports, higher ed, nonprofits and more. My niche is high quality, well-thought-out everything, but I often tend to end up focusing on ad campaign development!</p>
+    <p>I've been watching BARK's job postings for quite some time waiting for something creative to open up! Your packaging has always inspired me. I remember the first time I came across it in Target — the themes, the naming, the storytelling — it all looked like so much fun, when the design I had been creating was a bit... limited and corporate. The thought of creating fun work, in a topic I care about (DOGS!!!! ok tbf I actually love all animals but I am a bit biased from Wally ofc!)</p>
+
+    <div class="paw-egg">
+      <div class="paw-btn">🐾</div>
+      <div class="paw-pop">wally approves this message!</div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="stat-item fade-up">
+      <div class="stat-num">9+</div>
+      <div class="stat-label">Years full-service creative</div>
+      <div class="stat-desc">agencies, federal, DTC, sports, nonprofit, higher ed, and more</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Accounts worked across at Aptive</div>
+      <div class="stat-desc">some simultaneously, including a $63M federal campaign</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up">
+      <div class="stat-num">2x</div>
+      <div class="stat-label">Award-winning</div>
+      <div class="stat-desc">Marcom Platinum 2024 + Ragan Video Award 2022</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item fade-up">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Very good boy</div>
+      <div class="stat-desc">almost 6! (he's a Leo) lover of cheese, broccoli, and napping</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT TICKER -->
+<div class="client-strip">
+  <div class="client-strip-label">A few names I've worked with</div>
+  <div class="client-ticker-wrap">
+    <div class="client-ticker-inner">
+      <span>Department of Veterans Affairs</span><span class="cdot">·</span>
+      <span>National Park Service</span><span class="cdot">·</span>
+      <span>NASA</span><span class="cdot">·</span>
+      <span>Accenture</span><span class="cdot">·</span>
+      <span>Target</span><span class="cdot">·</span>
+      <span>Nike</span><span class="cdot">·</span>
+      <span>Johns Hopkins University</span><span class="cdot">·</span>
+      <span>National Science Foundation</span><span class="cdot">·</span>
+      <span>Office of Personnel Management</span><span class="cdot">·</span>
+      <span>Library of Congress</span><span class="cdot">·</span>
+      <span>Maryland Zoo</span><span class="cdot">·</span>
+      <span>STX</span><span class="cdot">·</span>
+      <span>Louisville Slugger</span><span class="cdot">·</span>
+      <span>USA Field Hockey</span><span class="cdot">·</span>
+      <span>USA Lacrosse</span><span class="cdot">·</span>
+      <span>Stella Artois</span><span class="cdot">·</span>
+      <span>Maryland Science Center</span><span class="cdot">·</span>
+      <span>MICA</span><span class="cdot">·</span>
+      <span>Bryn Mawr College</span><span class="cdot">·</span>
+      <span>George Mason University</span><span class="cdot">·</span>
+      <span>Towson University</span><span class="cdot">·</span>
+      <span>988 Suicide &amp; Crisis Lifeline</span><span class="cdot">·</span>
+      <span>Department of Energy</span><span class="cdot">·</span>
+      <span>Department of Transportation</span><span class="cdot">·</span>
+      <span>Early Alert</span><span class="cdot">·</span>
+      <span>National Bohemian</span><span class="cdot">·</span>
+      <span>Maryland Live Casino</span><span class="cdot">·</span>
+      <span>Liberty Mountain Resort</span><span class="cdot">·</span>
+      <span>Bully</span><span class="cdot">·</span>
+      <!-- duplicate for seamless loop -->
+      <span>Department of Veterans Affairs</span><span class="cdot">·</span>
+      <span>National Park Service</span><span class="cdot">·</span>
+      <span>NASA</span><span class="cdot">·</span>
+      <span>Accenture</span><span class="cdot">·</span>
+      <span>Target</span><span class="cdot">·</span>
+      <span>Nike</span><span class="cdot">·</span>
+      <span>Johns Hopkins University</span><span class="cdot">·</span>
+      <span>National Science Foundation</span><span class="cdot">·</span>
+      <span>Office of Personnel Management</span><span class="cdot">·</span>
+      <span>Library of Congress</span><span class="cdot">·</span>
+      <span>Maryland Zoo</span><span class="cdot">·</span>
+      <span>STX</span><span class="cdot">·</span>
+      <span>Louisville Slugger</span><span class="cdot">·</span>
+      <span>USA Field Hockey</span><span class="cdot">·</span>
+      <span>USA Lacrosse</span><span class="cdot">·</span>
+      <span>Stella Artois</span><span class="cdot">·</span>
+      <span>Maryland Science Center</span><span class="cdot">·</span>
+      <span>MICA</span><span class="cdot">·</span>
+      <span>Bryn Mawr College</span><span class="cdot">·</span>
+      <span>George Mason University</span><span class="cdot">·</span>
+      <span>Towson University</span><span class="cdot">·</span>
+      <span>988 Suicide &amp; Crisis Lifeline</span><span class="cdot">·</span>
+      <span>Department of Energy</span><span class="cdot">·</span>
+      <span>Department of Transportation</span><span class="cdot">·</span>
+      <span>Early Alert</span><span class="cdot">·</span>
+      <span>National Bohemian</span><span class="cdot">·</span>
+      <span>Maryland Live Casino</span><span class="cdot">·</span>
+      <span>Liberty Mountain Resort</span><span class="cdot">·</span>
+      <span>Bully</span><span class="cdot">·</span>
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work-section" id="work">
+  <div class="work-header">
+    <h2>Selected Work</h2>
+    <a href="https://harlieyeldezian.com" target="_blank" class="view-all">Full portfolio + case studies ↗</a>
+  </div>
+  <p class="work-subhead">My portfolio is complex and spans a wide variety of work types — that's what you get working for agencies for a decade! These are selected works I felt represented a good array of my skills, but they're by no means all I have to show. For a deeper look at case studies and the full range of what I've done, <a href="https://harlieyeldezian.com" target="_blank">please head this way.</a></p>
+  <p class="work-clicknote">👇 Click into each piece to see more!</p>
+
+  <div class="work-grid">
+    <div class="work-item" onclick="openLightbox('spec')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">💡</div><div class="ph-label">Spec + New Business Creative</div></div>
+      <div class="work-info"><div class="work-title">Spec + New Business</div><div class="work-tag">Concepting · Proposals · BD Creative</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('ai')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">🎨</div><div class="ph-label">AI-Assisted Creative Work</div></div>
+      <div class="work-info"><div class="work-title">AI-Assisted Creative</div><div class="work-tag">Midjourney · Firefly · Various</div></div>
+      <div class="wally-corner"><div class="wally-bubble">🐾 yes some of these have dogs!</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('nps')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">🌿</div><div class="ph-label">NPS Recruitment Campaign</div></div>
+      <div class="work-info"><div class="work-title">National Park Service</div><div class="work-tag">Brand Campaign · AI Imagery · Full System</div></div>
+      <div class="wally-corner"><div class="wally-bubble">🐾 wally approves of parks!</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('988')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">🌐</div><div class="ph-label">988 Web Build</div></div>
+      <div class="work-info"><div class="work-title">988 Web Build</div><div class="work-tag">Web · UX · Design + Build</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('chooseva')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">⭐</div><div class="ph-label">ChooseVA · Marcom Platinum 2024</div></div>
+      <div class="work-info"><div class="work-title">ChooseVA · Marcom Platinum</div><div class="work-tag">Integrated Campaign · Paid Media</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('zoo')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">🦒</div><div class="ph-label">Maryland Zoo</div></div>
+      <div class="work-info"><div class="work-title">Maryland Zoo</div><div class="work-tag">Branding · Campaign · Social</div></div>
+      <div class="wally-corner"><div class="wally-bubble">🦒 funny looking dogs i know!</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('captivate')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">✨</div><div class="ph-label">Captivate Rebrand</div></div>
+      <div class="work-info"><div class="work-title">Captivate Studio Rebrand</div><div class="work-tag">Brand Identity · Guidelines</div></div>
+    </div>
+    <div class="work-item" onclick="openLightbox('motion')">
+      <div class="img-placeholder work-thumb" style="aspect-ratio:16/5;"><div class="ph-icon">🎬</div><div class="ph-label">Motion, Video + More · replace with your general gallery</div></div>
+      <div class="work-info"><div class="work-title">Motion, Video + More</div><div class="work-tag">Video · Motion · Social · Mixed Media</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATIVE -->
+<section class="creative-section" id="made">
+  <div class="creative-header-row">
+    <div>
+      <div class="section-no">04 &nbsp;/&nbsp; Made For You</div>
+      <h2>Something I Made<em>specifically for BARK.</em></h2>
+    </div>
+    <div class="paw-circle-egg">
+      🐾
+      <div class="paw-circle-pop">a wally photo goes here!</div>
+    </div>
+  </div>
+  <p class="creative-desc">You said don't play it safe. Here's a taste of what I could do.</p>
+  <p class="creative-desc">I've been a one-person creative agency since college. Syracuse's communications design program teaches students to concept, write, art direct, and execute simultaneously — and that's been my working mode ever since. Concept through creation, start to finish, throughout my entire career.</p>
+  <p class="creative-desc">So when I saw you called that out specifically in your job posting, I figured I'd do what I do: give myself a brief and build something real. Introducing... <strong style="color:var(--yellow);">Caught Red-Pawed.</strong> Why? Because "you steal it, you wear it" is already a viral dog content format with millions of views. Because Wally is, genuinely and chronically, a sock and underwear thief. And because nothing says "I understand your brand" like pitching a product that could actually ship. This is the brief I gave myself. Here's what I made.</p>
+
+  <div class="creative-placeholder">
+    <div class="ph-big">🎬</div>
+    <div style="text-align:center;line-height:1.9;position:relative;">
+      Your creative submission goes here<br>
+      <span style="font-size:9px;opacity:0.45;">video · images · concept · all of the above</span>
+    </div>
+  </div>
+</section>
+
+<!-- A BIT MORE ABOUT ME -->
+<section class="more-section" id="more">
+  <div class="section-no">05 &nbsp;/&nbsp; A Bit More About Me</div>
+  <h2 class="more-h2">If you've read <em>this far</em>, hi.</h2>
+  <p class="more-lead">Here's a bit more on how I actually work, and who I am when I'm not working.</p>
+
+  <div class="more-grid">
+    <div class="more-col">
+      <div class="more-block">
+        <div class="more-block-head">How I Work</div>
+        <p class="more-p">Form AND Function, for me, will always be paramount. I am a strategic and research driven designer. I enjoy both the conceptualization AND the creation, as long as what I'm making solves the problem of the brief. I often write my own copy and do my own voice overs (lol! this was a surprise talent but I actually quite enjoy it). I never miss a deadline, I'm always raising my hand to help on things outside my lane, and I'm happiest when I get to learn something new to pull a project off (see: teaching myself to build this kind of site).</p>
+        <p class="more-p">I'm a zillenial who loves humor and having fun. I'm not precious about what I make, always open to feedback, and I love working with good people.</p>
+      </div>
+
+      <div class="more-block">
+        <div class="more-block-head">Outside of Work</div>
+        <p class="more-p">I love interior design, health and wellness, and crafting. If I'm not working on a project at home you can find me sleuthing for gluten free bakeries, working out, or being manipulated by Wally (also known as Wallybear, Wallabus, or Bubbabear) to give him cheese (my favorite place to be.)</p>
+        <p class="more-p">Wally is 6 — and a little reactive (covid pup! 🤪) so he may make himself known on calls, but he's a very good boy who uses buttons to speak, and is the prince of our DINKWAD home. We live in NJ outside of Philly, but are originally from Baltimore County Maryland.</p>
+      </div>
+    </div>
+
+    <div class="more-col">
+      <div class="ai-panel">
+        <div class="toolkit-label-head">How I Think About AI</div>
+        <p class="more-p">I've spent 9+ years building real creative expertise across design, strategy, motion, and advertising. I believe AI is excellent for evening the playing field of creative ideas, allowing many to conceptualize and create at a much faster pace without barrier. But I think it's important to treat these tools just like Photoshop or After Effects. <strong>I loathe AI slop. Tasteful AI use is dependent on the creator. An art director's eye is more important than ever.</strong></p>
+
+        <div class="toolkit-group">
+          <div class="toolkit-group-label ai-label">AI + Emerging</div>
+          <div class="tool-tags">
+            <div class="tool-tag ai">Claude</div>
+            <div class="tool-tag ai">Claude Code</div>
+            <div class="tool-tag ai">Midjourney</div>
+            <div class="tool-tag ai">Adobe Firefly</div>
+            <div class="tool-tag ai">ChatGPT</div>
+            <div class="tool-tag ai">Google Gemini</div>
+            <div class="tool-tag ai">ElevenLabs</div>
+            <div class="tool-tag ai">SUNO</div>
+          </div>
+        </div>
+        <div class="toolkit-group">
+          <div class="toolkit-group-label adobe-label">Adobe Suite (AI-integrated)</div>
+          <div class="tool-tags">
+            <div class="tool-tag adobe">Photoshop</div>
+            <div class="tool-tag adobe">Illustrator</div>
+            <div class="tool-tag adobe">InDesign</div>
+            <div class="tool-tag adobe">After Effects</div>
+            <div class="tool-tag adobe">Premiere</div>
+          </div>
+        </div>
+        <div class="toolkit-group">
+          <div class="toolkit-group-label other-label">Other</div>
+          <div class="tool-tags">
+            <div class="tool-tag other">CapCut</div>
+            <div class="tool-tag other">GitHub</div>
+            <div class="tool-tag other">+ whatever dropped last week</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wally-egg-toolkit">
+    <div class="trigger">psst!</div>
+    <div class="pop">Wally loves that mom uses AI!<br>means more pets, less screen time!</div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close-section" id="talk">
+  <div class="close-left">
+    <h2><em>My recall is excellent.</em> Reach out.</h2>
+    <p>Thank you so much for reading. I'd love to connect and chat more!</p>
+  </div>
+  <div class="close-right">
+    <a href="mailto:hyeldezian@gmail.com" class="cta-link primary">hyeldezian@gmail.com <span class="arrow">↗</span></a>
+    <a href="resume.html" target="_blank" class="cta-link">View Resume <span class="arrow">↗</span></a>
+    <a href="https://harlieyeldezian.com" target="_blank" class="cta-link">Full Portfolio <span class="arrow">↗</span></a>
+    <a href="https://linkedin.com/in/harlie-yeldezian-575410ba" target="_blank" class="cta-link">LinkedIn <span class="arrow">↗</span></a>
+    <div class="wally-aside">oh, and wally has a page too: <a href="https://www.instagram.com/longboi_wally" target="_blank">@longboi_wally</a></div>
+  </div>
+  <div class="footer-signoff">
+    <div class="signoff-text">bork borf boof woof woof — Wally says mom please don't mess this up</div>
+  </div>
+</section>
+
+<script>
+  // sticky nav — show after hero, highlight active section
+  const nav = document.getElementById('stickyNav');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > window.innerHeight * 0.7) {
+      nav.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+    }
+    // active section
+    let current = '';
+    sections.forEach(s => {
+      if(window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.dataset.section === current);
+    });
+  });
+
+  // mobile nav toggle
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  links.forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // cursor desktop only
+  const cursor = document.getElementById('cursor');
+  if(window.matchMedia('(hover: hover)').matches) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, .wally-egg, .paw-egg, .wally-egg-toolkit, .toybox-egg, .work-item, .tool-tag, .cta-link, .creative-placeholder, .footer-signoff, .paw-circle-egg').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+    });
+  }
+
+  // scroll fade
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // touch hover simulation for mobile
+  let activeTouch = null;
+
+  function addTouchHover(selector, hoverClass = 'touch-active') {
+    document.querySelectorAll(selector).forEach(el => {
+      el.addEventListener('touchstart', e => {
+        // dismiss previously active element
+        if(activeTouch && activeTouch !== el) {
+          activeTouch.classList.remove(hoverClass);
+          activeTouch.querySelectorAll('.wally-pop, .toy-pop, .paw-pop, .pop, .wally-bubble, .paw-circle-pop, .signoff-pop').forEach(p => {
+            p.style.transform = '';
+          });
+        }
+        el.classList.toggle(hoverClass);
+        activeTouch = el.classList.contains(hoverClass) ? el : null;
+      }, { passive: true });
+    });
+  }
+
+  // dismiss on tap outside
+  document.addEventListener('touchstart', e => {
+    if(activeTouch && !activeTouch.contains(e.target)) {
+      activeTouch.classList.remove('touch-active');
+      activeTouch = null;
+    }
+  }, { passive: true });
+
+  // work items — touch to reveal info overlay, tap again or elsewhere to dismiss
+  document.querySelectorAll('.work-item').forEach(el => {
+    el.addEventListener('touchstart', e => {
+      // if already active, open lightbox on second tap
+      if(el.classList.contains('touch-active')) {
+        return; // let the onclick fire
+      }
+      e.preventDefault();
+      if(activeTouch && activeTouch !== el) {
+        activeTouch.classList.remove('touch-active');
+      }
+      el.classList.add('touch-active');
+      activeTouch = el;
+    }, { passive: false });
+  });
+
+  // easter eggs — touch to pop
+  addTouchHover('.wally-egg');
+  addTouchHover('.paw-egg');
+  addTouchHover('.toybox-egg');
+  addTouchHover('.wally-egg-toolkit');
+  addTouchHover('.paw-circle-egg');
+  addTouchHover('.footer-signoff');
+
+  // lightbox
+  const lbData = {
+    nps: { title:'National Park Service', tag:'Brand Campaign · AI Imagery · Full System · Aptive Resources', images:4, desc:'Built the NPS recruitment campaign from the ground up: complete design, creative strategy, brand guidelines, stylescapes, social assets, and collateral. Used AI image generation (Midjourney + Firefly) to fill a real photography gap. Developed and delivered all templates and deliverables independently.' },
+    zoo: { title:'Maryland Zoo', tag:'Branding · Campaign · Social · Mission Media', images:4, desc:'Full brand and campaign work for the Maryland Zoo while at Mission Media. Branding, social media, event materials, print, and seasonal campaign creative.' },
+    chooseva: { title:"ChooseVA — What You've Earned", tag:'Integrated Campaign · Paid Media · Marcom Platinum 2024', images:4, desc:"Produced hundreds of ads for ChooseVA's integrated marketing campaign, including interactive GumGum skins, digital, social, and paid media creative. Awarded Platinum at the 2024 Marcom Awards." },
+    captivate: { title:'Captivate Creative Studio', tag:'Brand Identity · Guidelines · Naming · Aptive Resources', images:4, desc:"Led the full rebrand of Aptive's in-house creative studio from naming through launch. Built brand identity, guidelines, and creative direction." },
+    ai: { title:'AI-Assisted Creative Work', tag:'Midjourney · Adobe Firefly · ChatGPT · Personal + Client', images:4, desc:'A selection of AI-assisted creative work across personal projects and client work. Includes AI-generated imagery, concept exploration, and creative experiments.' },
+    spec: { title:'Spec + New Business Creative', tag:'Concepting · Proposals · BD Creative · Aptive Resources', images:4, desc:'Spec campaigns and new business creative built quickly using AI and classic design techniques. Includes interactive GitHub proposal sites, concepting decks, and campaign frameworks.' },
+    '988': { title:'988 Web Build', tag:'Web Design · UX · Design + Build', images:4, desc:'Full web design and build project, using AI-assisted development to go from concept to a live, interactive site. Design, UX, and execution handled independently.' },
+    motion: { title:'Motion, Video + More', tag:'Video · Motion Graphics · Social · Mixed Media', images:4, desc:'A general gallery of motion, video, and mixed media work across clients and personal projects. After Effects, Premiere, CapCut, and AI-assisted video tools.' },
+  };
+
+  function openLightbox(id) {
+    const d = lbData[id]; if(!d) return;
+    document.getElementById('lb-title').textContent = d.title;
+    document.getElementById('lb-tag').textContent = d.tag;
+    document.getElementById('lb-desc').textContent = d.desc;
+    const imgs = document.getElementById('lb-images');
+    imgs.innerHTML = '';
+    for(let i=0;i<d.images;i++) {
+      imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:4/3;"><div class="ph-icon">📷</div><div class="ph-label">Image ${i+1}<br>drop asset here</div></div>`;
+    }
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightbox').addEventListener('click', e => { if(e.target===e.currentTarget) closeLightbox(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+</script>
+</body>
+</html>
