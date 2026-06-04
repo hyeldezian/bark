@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harlie Yeldezian — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1A1612;
+    --paper: #f9f6f0;
+    --accent: #E8470A;
+    --body: #2e2a26;
+    --mid: #6b645d;
+    --border: #d9ded8;
+  }
+  @media print {
+    @page { margin: 0.5in 0.55in; }
+    body { padding: 0; background: white; }
+    .no-print { display: none !important; }
+    a { color: var(--accent); text-decoration: none; }
+    .page { box-shadow: none; max-width: none; padding: 0; }
+  }
+  body {
+    background: #1A1612;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    padding: 32px 16px 48px;
+    color: var(--body);
+  }
+  .page {
+    background: var(--paper);
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 36px 50px 30px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.13);
+  }
+
+  /* HEADER */
+  .hdr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 16px;
+    padding-bottom: 13px;
+    margin-bottom: 13px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .hdr h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 38px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+    color: var(--ink);
+  }
+  .hdr .sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    margin-top: 7px;
+    font-weight: 500;
+  }
+  .hdr .loc {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--mid);
+    margin-top: 6px;
+  }
+  .hdr-contact {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+  .hdr-contact a { color: var(--accent); text-decoration: none; }
+
+  /* INTRO */
+  .intro {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--body);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .intro strong { color: var(--ink); font-weight: 600; }
+
+  /* EDU LINE */
+  .edu-line {
+    font-size: 10.5px;
+    color: var(--mid);
+    padding-bottom: 11px;
+    margin-bottom: 13px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .edu-line strong {
+    color: var(--ink);
+    font-weight: 600;
+    font-family: 'Fraunces', serif;
+    font-size: 12px;
+  }
+
+  /* BODY GRID */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 176px;
+    gap: 0 34px;
+  }
+  h2.sec {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+
+  /* EXPERIENCE */
+  .job { margin-bottom: 10px; }
+  .job:last-child { margin-bottom: 0; }
+  .job-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .job-co {
+    font-family: 'Fraunces', serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .job-loc {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    font-size: 7.5px;
+    color: var(--mid);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 7px;
+  }
+  .job-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .job-studio {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+  .job-role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    color: var(--mid);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin: 2px 0 6px;
+  }
+  .job-bullets { list-style: none; padding: 0; margin: 0; }
+  .job-bullets li {
+    font-size: 10.5px;
+    line-height: 1.42;
+    color: var(--body);
+    padding-left: 13px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .job-bullets li:last-child { margin-bottom: 0; }
+  .job-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .job-ai {
+    font-size: 9.5px;
+    font-style: italic;
+    line-height: 1.42;
+    color: var(--mid);
+    margin-top: 5px;
+    padding-left: 13px;
+  }
+  .job-ai span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-style: normal;
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 3px;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 9px 0;
+  }
+
+  /* SIDEBAR */
+  .sb-block { margin-bottom: 15px; }
+  .sb-block:last-child { margin-bottom: 0; }
+  .sb-block h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 7px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sb-list {
+    font-size: 10.5px;
+    line-height: 1.72;
+    color: var(--body);
+  }
+  .sb-list .soft { color: var(--mid); font-style: italic; }
+  .award-item { margin-bottom: 6px; }
+  .award-item:last-child { margin-bottom: 0; }
+  .award-name { font-weight: 600; color: var(--ink); font-size: 10.5px; line-height: 1.4; }
+  .award-sub { font-size: 9.5px; color: var(--mid); font-style: italic; line-height: 1.4; }
+
+  /* FOOTER */
+  .resume-footer {
+    margin-top: 15px;
+    padding-top: 11px;
+    border-top: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--mid);
+    letter-spacing: 0.04em;
+  }
+  .resume-footer .wally { color: var(--accent); }
+
+  .print-btn {
+    display: block;
+    margin: 24px auto 0;
+    padding: 11px 28px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .print-btn:hover { background: var(--accent); }
+</style>
+</head>
+<body>
+<div style="background:#1A1612;padding:12px 24px;text-align:center;">
+  <a href="index.html" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#E8470A;text-decoration:none;">← Back to Application</a>
+</div>
+<div class="page">
+
+  <header class="hdr">
+    <div>
+      <h1>Harlie Yeldezian</h1>
+      <div class="sub">Art Director &nbsp;·&nbsp; Designer &nbsp;·&nbsp; Strategist</div>
+      <div class="loc">Based in Greater Philadelphia, New Jersey</div>
+    </div>
+    <div class="hdr-contact">
+      <a href="mailto:hyeldezian@gmail.com">hyeldezian@gmail.com</a><br>
+      <a href="https://harlieyeldezian.com">harlieyeldezian.com</a><br>
+      <a href="https://linkedin.com/in/harlie-yeldezian-575410ba">linkedin.com/in/harlie-yeldezian</a><br>
+      410.458.9248
+    </div>
+  </header>
+
+  <div class="intro">
+    Designer and art director with 9+ years of creative experience. My expertise spans campaign development, branding, motion and video, social media, packaging, web, copywriting, and strategy and conceptual thinking. <strong>I use AI as a creative tool, to improve efficiency and push work further. I believe it is not a replacement for human creativity.</strong>
+  </div>
+
+  <div class="edu-line">
+    <strong>Syracuse University</strong> &nbsp;·&nbsp; BFA Communications Design, concentration in Illustration &nbsp;·&nbsp; 2017 &nbsp;·&nbsp; Magna Cum Laude &nbsp;·&nbsp; Section 508 / WCAG 2.0 AA experienced (federal work)
+  </div>
+
+  <div class="body-grid">
+
+    <div>
+      <h2 class="sec">Experience</h2>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-co">Aptive Resources <span class="job-loc">DC · Remote</span></span>
+          <span class="job-date">Oct 2022 — Present</span>
+        </div>
+        <div class="job-studio">Captivate Creative Studio</div>
+        <div class="job-role">Senior Graphic Designer / Art Director</div>
+        <ul class="job-bullets">
+          <li>Art directed and designed across roughly 15 accounts in a full-service in-house studio, including a $63M federal campaign spanning branding, social, motion, video, and web.</li>
+          <li>Regularly built spec campaigns for new business, quickly and efficiently using AI and classic design techniques from Photoshop to SUNO for conceptual AI music jingle creation.</li>
+          <li>Built the National Park Service recruitment campaign from the ground up: complete design, creative strategy, brand guidelines, stylescapes, social, and collateral, using AI to generate imagery to fill a real photography gap.</li>
+          <li>Supported new business by designing and building interactive proposal sites on GitHub, a new deliverable format for the company, highly customizable, and shipped in days.</li>
+          <li>Served as the team's marketing and design jack of all trades and go-to for voice acting.</li>
+        </ul>
+        <div class="job-ai"><span>AI</span> Claude, ChatGPT, Gemini for concepting, copy, and strategy; Midjourney and Firefly for imagery; Claude Code for build.</div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-co">DCG Communications <span class="job-loc">DC · Remote</span></span>
+          <span class="job-date">Mar 2021 — Oct 2022</span>
+        </div>
+        <div class="job-role">Senior Graphic Designer</div>
+        <ul class="job-bullets">
+          <li>Delivered full-service design, direction, and strategy on a $53M public health campaign plus a wide range of federal accounts as surge support.</li>
+          <li>Won the 2022 Ragan Video Award for a VA Digital GI Bill campaign; established creative and motion/video workflows across internal and external teams.</li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-co">Mission Media <span class="job-loc">Baltimore</span></span>
+          <span class="job-date">Nov 2017 — Aug 2020</span>
+        </div>
+        <div class="job-role">Designer</div>
+        <ul class="job-bullets">
+          <li>Designed branding, campaigns, packaging, social, motion graphics, OOH, illustration, photo editing, and web across consumer, sports, higher ed, nonprofit, and destination markets.</li>
+          <li>Clients included Maryland Zoo, Maryland Science Center, Louisville Slugger, STX, Nike, USA Field Hockey, USA Lacrosse, Johns Hopkins, NASA, Towson University, Liberty Mountain Resort, National Bohemian, and more.</li>
+        </ul>
+      </div>
+
+      <hr class="divider">
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-co">Mother New York <span class="job-loc">NYC</span></span>
+          <span class="job-date">Summer 2016</span>
+        </div>
+        <div class="job-role">Production Design Intern</div>
+        <ul class="job-bullets">
+          <li>Produced strategy, design, and production work at a Cannes Lion award-winning agency for clients including Target, Stella Artois, and Diamond Producers Association.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div>
+      <div class="sb-block">
+        <h2>AI Tools</h2>
+        <div class="sb-list">
+          Claude &amp; Claude Code<br>
+          Midjourney<br>
+          Adobe Firefly<br>
+          ChatGPT<br>
+          Google Gemini<br>
+          ElevenLabs<br>
+          <span class="soft">&amp; always tinkering with the newest tools</span>
+        </div>
+      </div>
+
+      <div class="sb-block">
+        <h2>Expert Tools</h2>
+        <div class="sb-list">
+          Photoshop<br>
+          Illustrator<br>
+          InDesign<br>
+          After Effects<br>
+          Premiere<br>
+          CapCut<br>
+          AI-assisted dev<br>
+          GitHub<br>
+          &amp; more
+        </div>
+      </div>
+
+      <div class="sb-block">
+        <h2>Craft</h2>
+        <div class="sb-list">
+          Art Direction<br>
+          Brand &amp; Identity<br>
+          Campaign Strategy<br>
+          Concept Design<br>
+          Short-Form Video<br>
+          Motion Graphics<br>
+          Social &amp; Paid Media<br>
+          Packaging &amp; Print<br>
+          Illustration<br>
+          Copywriting<br>
+          UX &amp; Web<br>
+          VO &amp; Voice Acting<br>
+          &amp; more
+        </div>
+      </div>
+
+      <div class="sb-block">
+        <h2>Awards</h2>
+        <div class="award-item">
+          <div class="award-name">Marcom Platinum 2024</div>
+          <div class="award-sub">Integrated campaign, VA ChooseVA</div>
+        </div>
+        <div class="award-item">
+          <div class="award-name">Ragan Video Award 2022</div>
+          <div class="award-sub">VA Digital GI Bill campaign</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="resume-footer">
+    Dog mom to <span class="wally">Wally</span>, miniature longhair piebald dachshund. &lt;3
+  </footer>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">Save as PDF</button>
+
+</body>
+</html>
