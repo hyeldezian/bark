@@ -829,12 +829,11 @@
 
   /* grid layout desktop */
   @media (min-width: 769px) {
-    .work-item:nth-child(1) { grid-column: span 7; }
-    .work-item:nth-child(2) { grid-column: span 5; }
-    .work-item:nth-child(3) { grid-column: span 4; }
-    .work-item:nth-child(4) { grid-column: span 4; }
-    .work-item:nth-child(5) { grid-column: span 4; }
-    .work-item:nth-child(6) { grid-column: span 12; }
+    .work-item-full { grid-column: span 12; }
+    .work-item-half { grid-column: span 6; }
+  }
+  @media (max-width: 768px) {
+    .work-item-full, .work-item-half { grid-column: span 1; }
   }
 
   /* LIGHTBOX */
@@ -1168,7 +1167,7 @@
       <div class="psst-note wally-egg">
         psst. there are dogs hidden in here.
         <div class="wally-pop" style="white-space:normal;width:140px;">
-          <img src="images/wally-psst.jpg" alt="Wally" style="width:110px;height:110px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 6px;">
+          <img src="images/wally-psst.jpg" alt="Wally" style="width:110px;height:110px;border-radius:12px;object-fit:cover;display:block;margin:0 auto 6px;">
           wally!
         </div>
       </div>
@@ -1350,7 +1349,7 @@
   <p class="creative-desc">So when I saw you called that out specifically in your job posting, I figured I'd do what I do: give myself a brief and build something real. Introducing <strong style="color:var(--yellow);">Caught Red-Pawed.</strong></p>
 
   <div class="creative-images">
-    <img src="images/creative-1.jpg" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img">
+    <img src="images/creative-1.png" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img">
   </div>
 </section>
 
@@ -1364,32 +1363,27 @@
   <p class="work-clicknote">👇 Click into each piece to see more!</p>
 
   <div class="work-grid">
-    <div class="work-item" onclick="openLightbox('spec')">
-      <div class="img-placeholder work-thumb"><div class="ph-icon">💡</div><div class="ph-label">Spec + New Business Creative</div></div>
-      <div class="work-info"><div class="work-title">Spec + New Business</div><div class="work-tag">Concepting · Proposals · BD Creative</div></div>
-    </div>
-    <div class="work-item" onclick="openLightbox('ai')">
-      <div class="img-placeholder work-thumb"><div class="ph-icon">🎨</div><div class="ph-label">AI-Assisted Creative Work</div></div>
-      <div class="work-info"><div class="work-title">AI-Assisted Creative</div><div class="work-tag">Midjourney · Firefly · Various</div></div>
+
+    <!-- 1. Personal AI Projects — full width banner -->
+    <div class="work-item work-item-full" onclick="openLightbox('ai')">
+      <div class="img-placeholder work-thumb" style="aspect-ratio:16/6;"><div class="ph-icon">🎨</div><div class="ph-label">Personal AI Projects · Midjourney, Firefly, ChatGPT + more</div></div>
+      <div class="work-info"><div class="work-title">Personal AI Projects</div><div class="work-tag">Midjourney · Firefly · ChatGPT · Experiments · Various</div></div>
       <div class="wally-corner"><div class="wally-bubble">🐾 yes some of these have dogs!</div></div>
     </div>
-    <div class="work-item" onclick="openLightbox('nps')">
-      <div class="img-placeholder work-thumb"><div class="ph-icon">🌿</div><div class="ph-label">NPS Recruitment Campaign</div></div>
-      <div class="work-info"><div class="work-title">National Park Service</div><div class="work-tag">Brand Campaign · AI Imagery · Full System</div></div>
+
+    <!-- 2. Spec Work -->
+    <div class="work-item work-item-half" onclick="openLightbox('spec')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">💡</div><div class="ph-label">Spec Work</div></div>
+      <div class="work-info"><div class="work-title">Spec Work</div><div class="work-tag">Concepting · Campaign · Brand · Various</div></div>
+    </div>
+
+    <!-- 3. Additional Design Work -->
+    <div class="work-item work-item-half" onclick="openLightbox('design')">
+      <div class="img-placeholder work-thumb"><div class="ph-icon">🌿</div><div class="ph-label">Additional Design Work · NPS + more</div></div>
+      <div class="work-info"><div class="work-title">Additional Design Work</div><div class="work-tag">Federal · Campaign · Brand · AI Imagery</div></div>
       <div class="wally-corner"><div class="wally-bubble">🐾 wally approves of parks!</div></div>
     </div>
-    <div class="work-item" onclick="openLightbox('988')">
-      <div class="img-placeholder work-thumb"><div class="ph-icon">🌐</div><div class="ph-label">988 Web Build</div></div>
-      <div class="work-info"><div class="work-title">988 Web Build</div><div class="work-tag">Web · UX · Design + Build</div></div>
-    </div>
-    <div class="work-item" onclick="openLightbox('chooseva')">
-      <div class="img-placeholder work-thumb"><div class="ph-icon">⭐</div><div class="ph-label">ChooseVA · Marcom Platinum 2024</div></div>
-      <div class="work-info"><div class="work-title">ChooseVA · Marcom Platinum</div><div class="work-tag">Integrated Campaign · Paid Media</div></div>
-    </div>
-    <div class="work-item" onclick="openLightbox('motion')">
-      <div class="img-placeholder work-thumb" style="aspect-ratio:16/5;"><div class="ph-icon">🖼️</div><div class="ph-label">General Gallery · mixed work, video, motion, packaging + more</div></div>
-      <div class="work-info"><div class="work-title">General Gallery</div><div class="work-tag">Video · Motion · Packaging · Social · Mixed</div></div>
-    </div>
+
   </div>
 </section>
 
@@ -1457,7 +1451,7 @@
   <div class="wally-egg-toolkit">
     <div class="trigger">psst!</div>
     <div class="pop">
-      <img src="images/wally-toolkit.jpg" alt="Wally" style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 8px;">
+      <img src="images/wally-toolkit.jpg" alt="Wally" style="width:100px;height:100px;border-radius:12px;object-fit:cover;display:block;margin:0 auto 8px;">
       wally photo goes here!
     </div>
   </div>
@@ -1589,14 +1583,9 @@
 
   // lightbox
   const lbData = {
-    nps: { title:'National Park Service', tag:'Brand Campaign · AI Imagery · Full System · Aptive Resources', images:4, desc:'Built the NPS recruitment campaign from the ground up: complete design, creative strategy, brand guidelines, stylescapes, social assets, and collateral. Used AI image generation (Midjourney + Firefly) to fill a real photography gap. Developed and delivered all templates and deliverables independently.' },
-    zoo: { title:'Maryland Zoo', tag:'Branding · Campaign · Social · Mission Media', images:4, desc:'Full brand and campaign work for the Maryland Zoo while at Mission Media. Branding, social media, event materials, print, and seasonal campaign creative.' },
-    chooseva: { title:"ChooseVA — What You've Earned", tag:'Integrated Campaign · Paid Media · Marcom Platinum 2024', images:4, desc:"Produced hundreds of ads for ChooseVA's integrated marketing campaign, including interactive GumGum skins, digital, social, and paid media creative. Awarded Platinum at the 2024 Marcom Awards." },
-    captivate: { title:'Captivate Creative Studio', tag:'Brand Identity · Guidelines · Naming · Aptive Resources', images:4, desc:"Led the full rebrand of Aptive's in-house creative studio from naming through launch. Built brand identity, guidelines, and creative direction." },
-    ai: { title:'AI-Assisted Creative Work', tag:'Midjourney · Adobe Firefly · ChatGPT · Personal + Client', images:4, desc:'A selection of AI-assisted creative work across personal projects and client work. Includes AI-generated imagery, concept exploration, and creative experiments.' },
-    spec: { title:'Spec + New Business Creative', tag:'Concepting · Proposals · BD Creative · Aptive Resources', images:4, desc:'Spec campaigns and new business creative built quickly using AI and classic design techniques. Includes interactive GitHub proposal sites, concepting decks, and campaign frameworks.' },
-    '988': { title:'988 Web Build', tag:'Web Design · UX · Design + Build', images:4, desc:'Full web design and build project, using AI-assisted development to go from concept to a live, interactive site. Design, UX, and execution handled independently.' },
-    motion: { title:'Motion, Video + More', tag:'Video · Motion Graphics · Social · Mixed Media', images:4, desc:'A general gallery of motion, video, and mixed media work across clients and personal projects. After Effects, Premiere, CapCut, and AI-assisted video tools.' },
+    ai: { title:'Personal AI Projects', tag:'Midjourney · Adobe Firefly · ChatGPT · Experiments · Various', images:8, desc:'A collection of personal AI creative work — experiments, generated imagery, concept explorations, and projects made just because. Tools: Midjourney, Adobe Firefly, ChatGPT, Claude, SUNO, and more.' },
+    spec: { title:'Spec Work', tag:'Concepting · Campaign · Brand · Various', images:4, desc:'Spec campaigns and concepts developed to show range across consumer, digital, and brand work. Built independently using AI and classic design techniques.' },
+    design: { title:'Additional Design Work', tag:'Federal · Campaign · Brand · AI Imagery', images:4, desc:'A selection of additional design work including the National Park Service recruitment campaign and more. Full brand systems, campaign creative, and AI-assisted imagery.' },
   };
 
   function openLightbox(id) {
