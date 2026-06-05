@@ -322,7 +322,7 @@
 
   .psst-note {
     position: absolute;
-    left: 8px; top: 42%;
+    left: 8px; top: 22%;
     writing-mode: vertical-rl;
     font-size: 8px;
     color: rgba(255,255,255,0.15);
@@ -331,9 +331,26 @@
     cursor: default;
     transition: color 0.2s;
     user-select: none;
+    z-index: 10;
   }
   @media (hover: hover) { .psst-note:hover { color: var(--orange); } }
   @media (max-width: 768px) { .psst-note { display: none; } }
+  .psst-note .wally-pop {
+    writing-mode: horizontal-tb;
+    left: calc(100% + 12px);
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%) scale(0) rotate(0deg);
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .psst-note .wally-pop::after { display: none; }
+  @media (hover: hover) {
+    .psst-note:hover .wally-pop { transform: translateY(-50%) scale(1) rotate(0deg); }
+  }
 
   .hero-right {
     background: var(--orange);
@@ -1270,10 +1287,9 @@
       <div class="hero-name">Harlie Yeldezian</div>
       <div class="hero-tagline">You Had Me At Dogs.</div>
       <div class="psst-note wally-egg">
-        psst. there are dogs hidden in here.
-        <div class="wally-pop" style="white-space:normal;width:140px;">
-          <img src="images/wally-psst.jpg" alt="Wally" style="width:110px;height:110px;border-radius:12px;object-fit:cover;display:block;margin:0 auto 6px;">
-          wally!
+        psst! hidden easter eggs throughout — hover to find them!
+        <div class="wally-pop" style="white-space:normal;width:126px;">
+          <img src="images/wally-psst.jpg" alt="Wally" style="width:110px;height:110px;border-radius:12px;object-fit:cover;display:block;">
         </div>
       </div>
     </div>
