@@ -1481,12 +1481,12 @@
       <div class="wally-corner"><div class="wally-bubble">🐾 yes some of these have dogs!</div></div>
     </div>
 
-    <!-- 2. Spec Work -->
+    <!-- 2. Proposal Concepts -->
     <div class="work-item work-item-half" onclick="openLightbox('spec')">
       <div class="work-thumb" style="aspect-ratio:4/3;overflow:hidden;background:var(--warm-gray);">
-        <img src="images/work-spec-1.jpg" alt="Spec Work" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='<div class=img-placeholder style=height:100%;><div class=ph-icon>💡</div><div class=ph-label>Spec Work</div></div>'">
+        <img src="images/work-spec-1.jpg" alt="Proposal Concepts" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='<div class=img-placeholder style=height:100%;><div class=ph-icon>💡</div><div class=ph-label>Proposal Concepts</div></div>'">
       </div>
-      <div class="work-info"><div class="work-title">Spec Work</div><div class="work-tag">Concepting · Campaign · Brand · Various</div></div>
+      <div class="work-info"><div class="work-title">Proposal Concepts</div><div class="work-tag">Concepting · Campaign · Brand · Various</div></div>
     </div>
 
     <!-- 3. Additional Design Work -->
@@ -1720,13 +1720,13 @@
       desc:'A collection of personal AI creative work — experiments, generated imagery, concept explorations, and projects made just because. Tools: Midjourney, Adobe Firefly, ChatGPT, Claude, SUNO, and more.'
     },
     spec: {
-      title:'Spec Work',
-      tag:'Concepting · Campaign · Brand · AI-Assisted · Various',
+      title:'Proposal Concepts',
+      tag:'New Business · Proposal Concepts · AI-Assisted · Various',
       files: [
         { src:'images/work-spec-1.jpg', type:'image' },
         { src:'images/work-spec-2.jpg', type:'image' },
       ],
-      desc:'988 Baltimore Spec Campaign: A fully AI-assisted spec campaign for the 988 Suicide & Crisis Lifeline. Included a fully AI-built website (similar to this one) built with Claude Code. AI used in ideation for copy, to generate imagery which was then used in traditional design formats, to assist in script writing for a VO and TV spot, and for proposal content referencing research materials and meeting campaign goals. Two additional spec campaigns were built for that proposal — one included jingles, one of which is linked below (made with SUNO). All design was made by hand. Imagery was altered or created in Firefly.\n\nChesapeake Bay Spec Campaign: Traditional design work with AI used to generate imagery and assist with content and copy ideation. All design done by hand.',
+      descHTML:'<p style="margin-bottom:10px;font-style:italic;color:#7A6E64;">These concepts were developed for new business opportunities and pitches.</p><p style="margin-bottom:10px;"><strong>988 Baltimore Spec Campaign:</strong> A fully AI-assisted spec campaign for the 988 Suicide & Crisis Lifeline. Included a fully AI-built website (similar to this one) built with Claude Code. AI used in ideation for copy, to generate imagery which was then used in traditional design formats, to assist in script writing for a VO and TV spot, and for proposal content referencing research materials and meeting campaign goals. Two additional spec campaigns were built for that proposal — one included jingles, one of which is linked below (made with SUNO). All design was made by hand. Imagery was altered or created in Firefly.</p><p><strong>Chesapeake Spec Campaign:</strong> Traditional design work with AI used to generate imagery and assist with content and copy ideation. All design done by hand.</p>',
       audio: { src:'audio/jingle-988.mp3', label:'988 Campaign Jingle', desc:'AI-generated jingle created with SUNO for the 988 Suicide & Crisis Lifeline spec campaign.' }
     },
     design: {
@@ -1738,7 +1738,7 @@
         { src:'images/work-design-3.jpg', type:'image', layout:'square' },
         { src:'images/work-design-4.jpg', type:'image', layout:'wide' },
       ],
-      desc:'National Park Service: Full recruitment campaign — owned entirely from creative strategy through final delivery. AI used only to assist with imagery edits and copy ideation; all creative direction and execution by hand.\n\nNational Science Foundation: Full campaign design with no AI used — traditional design throughout.\n\nMaryland Zoo (Mission Media): Classic brand and campaign work, included as a nod to some of my favorite earlier work at Mission — and because animals.'
+      descHTML:'<p style="margin-bottom:10px;"><strong>National Park Service:</strong> Full recruitment campaign — owned entirely from creative strategy through final delivery. AI used only to assist with imagery edits and copy ideation; all creative direction and execution by hand.</p><p style="margin-bottom:10px;"><strong>National Science Foundation:</strong> Full campaign design with no AI used — traditional design throughout.</p><p style="margin-bottom:10px;"><strong>ChooseVA (Department of Veterans Affairs):</strong> Production of hundreds of ads, developed copy, and web skin animations — all done traditionally with no AI.</p><p><strong>Maryland Zoo (Mission Media):</strong> Classic brand and campaign work, included as a nod to some of my favorite earlier work at Mission — and because animals.</p>',
     },
   };
 
@@ -1748,7 +1748,11 @@
     document.getElementById('lb-tag').textContent = d.tag;
     // desc supports newlines
     const descEl = document.getElementById('lb-desc');
-    descEl.innerHTML = d.desc.split('\n\n').map(p => `<p style="margin-bottom:10px;">${p}</p>`).join('');
+    if(d.descHTML) {
+      descEl.innerHTML = d.descHTML;
+    } else {
+      descEl.innerHTML = d.desc.split('\n\n').map(p => `<p style="margin-bottom:10px;">${p}</p>`).join('');
+    }
 
     // images with optional custom layouts — supports mixed jpg/mp4
     const imgs = document.getElementById('lb-images');
