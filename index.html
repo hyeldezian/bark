@@ -757,6 +757,18 @@
     margin-bottom: 44px;
   }
   .work-subhead a { color: var(--orange); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .work-note {
+    font-size: 11.5px;
+    color: var(--mid);
+    line-height: 1.75;
+    max-width: 680px;
+    margin-bottom: 16px;
+    font-style: italic;
+    padding: 14px 16px;
+    border-left: 3px solid var(--orange);
+    background: var(--warm-gray);
+  }
+  .work-note strong { color: var(--ink); font-style: normal; font-weight: 600; }
   .work-clicknote {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -867,6 +879,32 @@
   @media (max-width: 480px) { .lightbox-images { grid-template-columns: 1fr; } }
   .lightbox-images .img-placeholder { aspect-ratio: 4/3; }
   .lightbox-desc { font-size: 12px; color: var(--mid); line-height: 1.8; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--warm-gray); }
+
+  /* audio player */
+  .lb-audio-block {
+    margin-top: 20px;
+    padding: 18px 20px;
+    background: var(--warm-gray);
+    border-left: 3px solid var(--orange);
+  }
+  .lb-audio-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .lb-audio-desc {
+    font-size: 11px;
+    color: var(--mid);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .lb-audio-block audio {
+    width: 100%;
+    accent-color: var(--orange);
+  }
 
   /* ===== CREATIVE ===== */
   .creative-section {
@@ -1154,6 +1192,7 @@
     <div class="lightbox-tag" id="lb-tag"></div>
     <div class="lightbox-desc" id="lb-desc"></div>
     <div class="lightbox-images" id="lb-images"></div>
+    <div id="lb-audio"></div>
   </div>
 </div>
 
@@ -1360,6 +1399,7 @@
     <a href="https://harlieyeldezian.com" target="_blank" class="view-all">Full portfolio + case studies ↗</a>
   </div>
   <p class="work-subhead">My portfolio is complex and spans a wide variety of work types — that's what you get working for agencies for a decade! These are selected works I felt represented a good array of my skills, but they're by no means all I have to show. For a deeper look at case studies and the full range of what I've done, <a href="https://harlieyeldezian.com" target="_blank">please head this way.</a></p>
+  <p class="work-note">A note: none of this work is currently on my portfolio site. I built this page specifically for this application because most of my Aptive work hasn't been incorporated into my site yet — and I wanted something custom for you. My portfolio shows a different, broader range of what I can do. I do everything.</p>
   <p class="work-clicknote">👇 Click into each piece to see more!</p>
 
   <div class="work-grid">
@@ -1583,25 +1623,70 @@
 
   // lightbox
   const lbData = {
-    ai: { title:'Personal AI Projects', tag:'Midjourney · Adobe Firefly · ChatGPT · Experiments · Various', images:8, desc:'A collection of personal AI creative work — experiments, generated imagery, concept explorations, and projects made just because. Tools: Midjourney, Adobe Firefly, ChatGPT, Claude, SUNO, and more.' },
-    spec: { title:'Spec Work', tag:'Concepting · Campaign · Brand · Various', images:4, desc:'Spec campaigns and concepts developed to show range across consumer, digital, and brand work. Built independently using AI and classic design techniques.' },
-    design: { title:'Additional Design Work', tag:'Federal · Campaign · Brand · AI Imagery', images:4, desc:'A selection of additional design work including the National Park Service recruitment campaign and more. Full brand systems, campaign creative, and AI-assisted imagery.' },
+    ai: {
+      title:'Personal AI Projects',
+      tag:'Midjourney · Adobe Firefly · ChatGPT · Experiments · Various',
+      images:8,
+      desc:'A collection of personal AI creative work — experiments, generated imagery, concept explorations, and projects made just because. Tools: Midjourney, Adobe Firefly, ChatGPT, Claude, SUNO, and more.'
+    },
+    spec: {
+      title:'Spec Work',
+      tag:'Concepting · Campaign · Brand · AI-Assisted · Various',
+      images:4,
+      desc:'988 Baltimore Spec Campaign: A fully AI-assisted spec campaign for the 988 Suicide & Crisis Lifeline. Included a fully AI-built website (similar to this one) built with Claude Code. AI used in ideation for copy, to generate imagery which was then used in traditional design formats, to assist in script writing for a VO and TV spot, and for proposal content referencing research materials and meeting campaign goals. Two additional spec campaigns were built for that proposal — one included jingles, one of which is linked below (made with SUNO). All design was made by hand. Imagery was altered or created in Firefly.\n\nChesapeake Bay Spec Campaign: Traditional design work with AI used to generate imagery and assist with content and copy ideation. All design done by hand.',
+      audio: { src:'audio/jingle-988.mp3', label:'988 Campaign Jingle', desc:'AI-generated jingle created with SUNO for the 988 Suicide & Crisis Lifeline spec campaign.' }
+    },
+    design: {
+      title:'Additional Design Work',
+      tag:'Federal · Campaign · Brand · Classic Design',
+      images:4,
+      imageLayouts: ['wide','square','square','wide'],
+      desc:'National Park Service: Full recruitment campaign — owned entirely from creative strategy through final delivery. AI used only to assist with imagery edits and copy ideation; all creative direction and execution by hand.\n\nNational Science Foundation: Full campaign design with no AI used — traditional design throughout.\n\nMaryland Zoo (Mission Media): Classic brand and campaign work, included as a nod to some of my favorite earlier work at Mission — and because animals.'
+    },
   };
 
   function openLightbox(id) {
     const d = lbData[id]; if(!d) return;
     document.getElementById('lb-title').textContent = d.title;
     document.getElementById('lb-tag').textContent = d.tag;
-    document.getElementById('lb-desc').textContent = d.desc;
+    // desc supports newlines
+    const descEl = document.getElementById('lb-desc');
+    descEl.innerHTML = d.desc.split('\n\n').map(p => `<p style="margin-bottom:10px;">${p}</p>`).join('');
+
+    // images with optional custom layouts
     const imgs = document.getElementById('lb-images');
     imgs.innerHTML = '';
-    for(let i=0;i<d.images;i++) {
-      imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:4/3;"><div class="ph-icon">📷</div><div class="ph-label">Image ${i+1}<br>drop asset here</div></div>`;
+    imgs.style.gridTemplateColumns = '';
+    for(let i=0;i<d.images;i++){
+      const layout = d.imageLayouts ? d.imageLayouts[i] : 'square';
+      const ratio = layout === 'wide' ? '16/6' : '4/3';
+      const span = layout === 'wide' ? 'grid-column:span 2;' : '';
+      imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:${ratio};${span}"><div class="ph-icon">📷</div><div class="ph-label">Image ${i+1}<br>${layout === 'wide' ? 'wide · stylescape' : 'drop asset here'}</div></div>`;
     }
+
+    // audio
+    const audioEl = document.getElementById('lb-audio');
+    if(d.audio) {
+      audioEl.innerHTML = `
+        <div class="lb-audio-block">
+          <div class="lb-audio-label">🎵 Listen</div>
+          <div class="lb-audio-desc">${d.audio.desc}</div>
+          <audio controls preload="none">
+            <source src="${d.audio.src}" type="audio/mpeg">
+            Your browser does not support audio playback.
+          </audio>
+        </div>`;
+    } else {
+      audioEl.innerHTML = '';
+    }
+
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeLightbox() {
+    // stop any playing audio
+    const audio = document.querySelector('#lb-audio audio');
+    if(audio) { audio.pause(); audio.currentTime = 0; }
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
   }
