@@ -1509,7 +1509,7 @@
       <p class="more-lead">Here's a bit more on how I actually work, and who I am when I'm not working.</p>
     </div>
     <div class="more-harlie-circle">
-      <img src="images/harlie-circle.jpg" alt="Harlie Yeldezian" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <img src="images/harlie-circlewally-toolkit.jpg" alt="Harlie Yeldezian" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
       <div class="more-harlie-ph">📸</div>
     </div>
   </div>
@@ -1722,15 +1722,21 @@
     spec: {
       title:'Spec Work',
       tag:'Concepting · Campaign · Brand · AI-Assisted · Various',
-      images:4,
+      files: [
+        { src:'images/work-spec-1.jpg', type:'image' },
+        { src:'images/work-spec-2.jpg', type:'image' },
+      ],
       desc:'988 Baltimore Spec Campaign: A fully AI-assisted spec campaign for the 988 Suicide & Crisis Lifeline. Included a fully AI-built website (similar to this one) built with Claude Code. AI used in ideation for copy, to generate imagery which was then used in traditional design formats, to assist in script writing for a VO and TV spot, and for proposal content referencing research materials and meeting campaign goals. Two additional spec campaigns were built for that proposal — one included jingles, one of which is linked below (made with SUNO). All design was made by hand. Imagery was altered or created in Firefly.\n\nChesapeake Bay Spec Campaign: Traditional design work with AI used to generate imagery and assist with content and copy ideation. All design done by hand.',
       audio: { src:'audio/jingle-988.mp3', label:'988 Campaign Jingle', desc:'AI-generated jingle created with SUNO for the 988 Suicide & Crisis Lifeline spec campaign.' }
     },
     design: {
       title:'Additional Design Work',
       tag:'Federal · Campaign · Brand · Classic Design',
-      images:4,
-      imageLayouts: ['wide','square','square','wide'],
+      files: [
+        { src:'images/work-design-1.jpg', type:'image', layout:'wide' },
+        { src:'images/work-design-2.jpg', type:'image', layout:'square' },
+        { src:'images/work-design-4.jpg', type:'image', layout:'square' },
+      ],
       desc:'National Park Service: Full recruitment campaign — owned entirely from creative strategy through final delivery. AI used only to assist with imagery edits and copy ideation; all creative direction and execution by hand.\n\nNational Science Foundation: Full campaign design with no AI used — traditional design throughout.\n\nMaryland Zoo (Mission Media): Classic brand and campaign work, included as a nod to some of my favorite earlier work at Mission — and because animals.'
     },
   };
@@ -1749,7 +1755,7 @@
     if(d.files) {
       // explicit file list with types
       d.files.forEach((f, i) => {
-        const layout = d.imageLayouts ? d.imageLayouts[i] : 'square';
+        const layout = f.layout || (d.imageLayouts ? d.imageLayouts[i] : 'square');
         const ratio = layout === 'wide' ? '16/6' : '4/3';
         const span = layout === 'wide' ? 'grid-column:span 2;' : '';
         if(f.type === 'video') {
