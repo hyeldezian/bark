@@ -1675,7 +1675,16 @@
     ai: {
       title:'Personal AI Projects',
       tag:'Midjourney · Adobe Firefly · ChatGPT · Experiments · Various',
-      images:8,
+      files: [
+        { src:'images/work-ai-1.mp4', type:'video' },
+        { src:'images/work-ai-2.mp4', type:'video' },
+        { src:'images/work-ai-3.jpg', type:'image' },
+        { src:'images/work-ai-4.jpg', type:'image' },
+        { src:'images/work-ai-5.jpg', type:'image' },
+        { src:'images/work-ai-6.jpg', type:'image' },
+        { src:'images/work-ai-7.jpg', type:'image' },
+        { src:'images/work-ai-8.jpg', type:'image' },
+      ],
       desc:'A collection of personal AI creative work — experiments, generated imagery, concept explorations, and projects made just because. Tools: Midjourney, Adobe Firefly, ChatGPT, Claude, SUNO, and more.'
     },
     spec: {
@@ -1702,15 +1711,35 @@
     const descEl = document.getElementById('lb-desc');
     descEl.innerHTML = d.desc.split('\n\n').map(p => `<p style="margin-bottom:10px;">${p}</p>`).join('');
 
-    // images with optional custom layouts
+    // images with optional custom layouts — supports mixed jpg/mp4
     const imgs = document.getElementById('lb-images');
     imgs.innerHTML = '';
-    imgs.style.gridTemplateColumns = '';
-    for(let i=0;i<d.images;i++){
-      const layout = d.imageLayouts ? d.imageLayouts[i] : 'square';
-      const ratio = layout === 'wide' ? '16/6' : '4/3';
-      const span = layout === 'wide' ? 'grid-column:span 2;' : '';
-      imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:${ratio};${span}"><div class="ph-icon">📷</div><div class="ph-label">Image ${i+1}<br>${layout === 'wide' ? 'wide · stylescape' : 'drop asset here'}</div></div>`;
+    if(d.files) {
+      // explicit file list with types
+      d.files.forEach((f, i) => {
+        const layout = d.imageLayouts ? d.imageLayouts[i] : 'square';
+        const ratio = layout === 'wide' ? '16/6' : '4/3';
+        const span = layout === 'wide' ? 'grid-column:span 2;' : '';
+        if(f.type === 'video') {
+          imgs.innerHTML += `<div style="aspect-ratio:${ratio};${span}overflow:hidden;background:#000;">
+            <video autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;display:block;">
+              <source src="${f.src}" type="video/mp4">
+            </video>
+          </div>`;
+        } else {
+          imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:${ratio};${span}">
+            <img src="${f.src}" alt="Work sample" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.parentElement.innerHTML='<div class=ph-icon>📷</div><div class=ph-label>drop asset here</div>'">
+          </div>`;
+        }
+      });
+    } else {
+      // fallback: numbered placeholders
+      for(let i=0;i<d.images;i++){
+        const layout = d.imageLayouts ? d.imageLayouts[i] : 'square';
+        const ratio = layout === 'wide' ? '16/6' : '4/3';
+        const span = layout === 'wide' ? 'grid-column:span 2;' : '';
+        imgs.innerHTML += `<div class="img-placeholder" style="aspect-ratio:${ratio};${span}"><div class="ph-icon">📷</div><div class="ph-label">Image ${i+1}<br>${layout === 'wide' ? 'wide · stylescape' : 'drop asset here'}</div></div>`;
+      }
     }
 
     // audio
@@ -1733,9 +1762,10 @@
     document.body.style.overflow = 'hidden';
   }
   function closeLightbox() {
-    // stop any playing audio
+    // stop any playing audio or video
     const audio = document.querySelector('#lb-audio audio');
     if(audio) { audio.pause(); audio.currentTime = 0; }
+    document.querySelectorAll('#lb-images video').forEach(v => { v.pause(); v.currentTime = 0; });
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
   }
