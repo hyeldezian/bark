@@ -757,24 +757,29 @@
     margin-bottom: 44px;
   }
   .work-subhead a { color: var(--orange); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .work-header-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 768px) { .work-header-block { grid-template-columns: 1fr; } }
   .work-note {
     font-size: 11.5px;
     color: var(--mid);
     line-height: 1.75;
-    max-width: 680px;
-    margin-bottom: 16px;
     font-style: italic;
     padding: 14px 16px;
     border-left: 3px solid var(--orange);
     background: var(--warm-gray);
+    align-self: start;
   }
-  .work-note strong { color: var(--ink); font-style: normal; font-weight: 600; }
   .work-clicknote {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     color: var(--orange);
     letter-spacing: 0.06em;
-    margin: -28px 0 44px;
+    margin: 0 0 44px 4px;
   }
 
   .work-grid {
@@ -1094,7 +1099,41 @@
   .work-item.touch-active .work-info { transform: translateY(0) !important; }
   .work-item.touch-active .wally-corner { opacity: 1; }
   .work-item.touch-active .wally-bubble { transform: scale(1) rotate(-2deg) !important; }
-  /* about me collapsible */
+  .more-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 768px) { .more-section-header { flex-direction: column-reverse; gap: 20px; } }
+  .more-harlie-circle {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--orange);
+    position: relative;
+  }
+  .more-harlie-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .more-harlie-ph {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: var(--warm-gray);
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: absolute;
+    inset: 0;
+  }
   .about-me-collapsible { margin-top: 20px; }
   .about-me-toggle {
     background: none;
@@ -1388,7 +1427,7 @@
   <p class="creative-desc">So when I saw you called that out specifically in your job posting, I figured I'd do what I do: give myself a brief and build something real. Introducing <strong style="color:var(--yellow);">Caught Red-Pawed.</strong></p>
 
   <div class="creative-images">
-    <img src="images/creative-1.png" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img">
+    <img src="images/creative-1.jpg" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img">
   </div>
 </section>
 
@@ -1398,9 +1437,11 @@
     <h2>Selected Work</h2>
     <a href="https://harlieyeldezian.com" target="_blank" class="view-all">Full portfolio + case studies ↗</a>
   </div>
-  <p class="work-subhead">My portfolio is complex and spans a wide variety of work types — that's what you get working for agencies for a decade! These are selected works I felt represented a good array of my skills, but they're by no means all I have to show. For a deeper look at case studies and the full range of what I've done, <a href="https://harlieyeldezian.com" target="_blank">please head this way.</a></p>
-  <p class="work-note">A note: none of this work is currently on my portfolio site. I built this page specifically for this application because most of my Aptive work hasn't been incorporated into my site yet — and I wanted something custom for you. My portfolio shows a different, broader range of what I can do. I do everything.</p>
-  <p class="work-clicknote">👇 Click into each piece to see more!</p>
+  <div class="work-header-block">
+    <p class="work-subhead">My portfolio is complex and spans a wide variety of work types — that's what you get working for agencies for a decade! These are selected works I felt represented a good array of my skills, but they're by no means all I have to show. For a deeper look at case studies and the full range of what I've done, <a href="https://harlieyeldezian.com" target="_blank">please head this way.</a></p>
+    <p class="work-note">A note: most of this work is not currently on my portfolio site (as many creatives can relate!). I built this page specifically for this application because most of my Aptive work hasn't been incorporated into my site yet — and I wanted something custom for you. My portfolio shows a different, broader range of what I can do!</p>
+  </div>
+  <p class="work-clicknote">👇 &nbsp;Click into each piece to see more!</p>
 
   <div class="work-grid">
 
@@ -1429,9 +1470,17 @@
 
 <!-- A BIT MORE ABOUT ME -->
 <section class="more-section" id="more">
-  <div class="section-no">05 &nbsp;/&nbsp; A Bit More About Me</div>
-  <h2 class="more-h2">If you've read <em>this far</em>, hi.</h2>
-  <p class="more-lead">Here's a bit more on how I actually work, and who I am when I'm not working.</p>
+  <div class="more-section-header">
+    <div>
+      <div class="section-no">05 &nbsp;/&nbsp; A Bit More About Me</div>
+      <h2 class="more-h2">If you've read <em>this far</em>, hi.</h2>
+      <p class="more-lead">Here's a bit more on how I actually work, and who I am when I'm not working.</p>
+    </div>
+    <div class="more-harlie-circle">
+      <img src="images/harlie-circle.jpg" alt="Harlie Yeldezian" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="more-harlie-ph">📸</div>
+    </div>
+  </div>
 
   <div class="more-grid">
     <div class="more-col">
