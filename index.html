@@ -111,7 +111,7 @@
     font-style: italic;
     font-size: 15px;
     color: var(--mid);
-    margin-bottom: 44px;
+    margin-bottom: 16px;
     max-width: 600px;
   }
   .more-grid {
@@ -363,7 +363,7 @@
     min-height: 50svh;
   }
   @media (max-width: 768px) {
-    .hero-right { padding: 28px; min-height: 360px; }
+    .hero-right { padding: 28px; min-height: 480px; }
   }
 
   .hero-img-area {
@@ -432,6 +432,9 @@
     transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
     pointer-events: none;
     line-height: 1.7;
+  }
+  @media (max-width: 768px) {
+    .toybox-egg .toy-pop { white-space: normal; width: 150px; right: calc(100% + 8px); }
   }
 
   /* ===== MARQUEE ===== */
@@ -517,28 +520,7 @@
     z-index: 10;
   }
   @media (max-width: 768px) {
-    .paw-egg {
-      position: relative;
-      right: auto; top: auto;
-      transform: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 16px;
-    }
-    .paw-egg .paw-pop {
-      position: relative;
-      right: auto; top: auto;
-      transform: none !important;
-      background: var(--ink);
-      color: var(--yellow);
-      font-size: 10px;
-      padding: 6px 10px;
-      letter-spacing: 0.06em;
-      line-height: 1.6;
-      display: none;
-    }
-    .paw-egg.touch-active .paw-pop { display: block !important; }
+    .paw-egg { display: none !important; }
   }
   .paw-egg .paw-btn {
     width: 32px; height: 32px;
@@ -704,22 +686,23 @@
     .wally-egg-toolkit {
       position: relative;
       bottom: auto; right: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
       margin-top: 24px;
     }
     .wally-egg-toolkit .pop {
-      position: relative;
-      bottom: auto; right: auto;
+      position: static;
       transform: none !important;
       background: var(--yellow);
       color: var(--ink);
       font-size: 10px;
-      padding: 6px 10px;
+      padding: 8px 12px;
       letter-spacing: 0.06em;
       line-height: 1.6;
       display: none;
+      max-width: 200px;
     }
     .wally-egg-toolkit.touch-active .pop { display: block !important; }
   }
@@ -1051,6 +1034,9 @@
     pointer-events: none; line-height: 1.6;
     z-index: 200;
   }
+  @media (max-width: 768px) {
+    .paw-circle-pop { white-space: normal; width: 180px; right: 0; left: auto; }
+  }
 
   /* ===== CLOSE ===== */
   .close-section {
@@ -1127,18 +1113,32 @@
   }
   @media (hover: hover) { .footer-signoff:hover .signoff-pop { transform: translateX(-50%) scale(1) rotate(-1deg); } }
 
-  /* TOUCH ACTIVE — mirrors hover states for mobile */
-  .wally-egg.touch-active .wally-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
-  .paw-egg.touch-active .paw-btn { transform: scale(1.3) rotate(12deg); }
-  .paw-egg.touch-active .paw-pop { transform: translateY(-50%) scale(1) !important; }
-  .toybox-egg.touch-active .toy-trigger { transform: scale(1.25) rotate(15deg); }
-  .toybox-egg.touch-active .toy-pop { transform: translateY(-50%) scale(1) !important; }
-  .wally-egg-toolkit.touch-active .trigger { color: var(--yellow); }
-  .wally-egg-toolkit.touch-active .pop { transform: scale(1) rotate(-1deg) !important; }
-  .paw-circle-egg.touch-active { transform: scale(1.2) rotate(-10deg); }
-  .paw-circle-egg.touch-active .paw-circle-pop { transform: scale(1) !important; }
+  /* TOUCH ACTIVE — desktop: mirror hover transforms */
+  @media (hover: hover) {
+    .wally-egg.touch-active .wally-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
+    .paw-egg.touch-active .paw-btn { transform: scale(1.3) rotate(12deg); }
+    .paw-egg.touch-active .paw-pop { transform: translateY(-50%) scale(1) !important; }
+    .toybox-egg.touch-active .toy-trigger { transform: scale(1.25) rotate(15deg); }
+    .toybox-egg.touch-active .toy-pop { transform: translateY(-50%) scale(1) !important; }
+    .wally-egg-toolkit.touch-active .pop { transform: scale(1) rotate(-1deg) !important; }
+    .paw-circle-egg.touch-active { transform: scale(1.2) rotate(-10deg); }
+    .paw-circle-egg.touch-active .paw-circle-pop { transform: scale(1) !important; }
+    .footer-signoff.touch-active .signoff-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
+  }
+
+  /* TOUCH ACTIVE — mobile/touch: show as static blocks */
+  @media (hover: none) {
+    .wally-egg.touch-active .wally-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; visibility: visible !important; opacity: 1 !important; }
+    .psst-note.touch-active .wally-pop { transform: translateY(-50%) scale(1) !important; visibility: visible !important; opacity: 1 !important; }
+    .paw-egg.touch-active .paw-pop { display: block !important; }
+    .toybox-egg.touch-active .toy-pop { transform: translateY(-50%) scale(1) !important; }
+    .wally-egg-toolkit.touch-active .pop { display: block !important; }
+    .paw-circle-egg.touch-active .paw-circle-pop { transform: scale(1) !important; }
+  }
+
+  /* always */
+  .wally-egg-toolkit.touch-active .trigger { color: var(--orange); }
   .footer-signoff.touch-active .signoff-text { color: var(--yellow); }
-  .footer-signoff.touch-active .signoff-pop { transform: translateX(-50%) scale(1) rotate(-1deg) !important; }
   .work-item.touch-active .work-info { transform: translateY(0) !important; }
   .work-item.touch-active .wally-corner { opacity: 1; }
   .work-item.touch-active .wally-bubble { transform: scale(1) rotate(-2deg) !important; }
@@ -1256,7 +1256,7 @@
 
 <!-- STICKY NAV -->
 <nav class="sticky-nav" id="stickyNav">
-  <div class="nav-name">Harlie Yeldezian</div>
+  <a href="#" class="nav-name" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none;cursor:pointer;">Harlie Yeldezian</a>
   <div class="nav-links">
     <a href="#who" class="nav-link" data-section="who">Who</a>
     <a href="#made" class="nav-link" data-section="made">Something I Made</a>
@@ -1284,7 +1284,7 @@
   <div class="hero-left">
     <div class="hero-tag">For BARK &nbsp;·&nbsp; 2026</div>
     <div>
-      <div class="hero-name">Harlie Yeldezian</div>
+      <div class="hero-name">Hi, I'm Harlie Yeldezian</div>
       <div class="hero-tagline">You Had Me At Dogs.</div>
       <div class="psst-note wally-egg">
         psst! hidden easter eggs throughout — hover to find them!
@@ -1470,7 +1470,12 @@
   <p class="creative-desc">So when I saw you called that out specifically in your job posting, I figured I'd do what I do: give myself a brief and build something real. Introducing <strong style="color:var(--yellow);">Caught Red-Pawed.</strong></p>
 
   <div class="creative-images">
-    <img src="images/creative-1.jpg" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img">
+    <img src="images/creative-1.jpg" alt="Caught Red-Pawed — Campaign Concept by Harlie Yeldezian" class="creative-img" onclick="openCreativeZoom(this)" style="cursor:zoom-in;">
+  </div>
+
+  <!-- creative zoom overlay -->
+  <div id="creative-zoom" onclick="closeCreativeZoom()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:2000;cursor:zoom-out;display:none;align-items:center;justify-content:center;padding:20px;">
+    <img id="creative-zoom-img" src="images/creative-1.jpg" alt="Caught Red-Pawed" style="max-width:100%;max-height:100%;object-fit:contain;display:block;">
   </div>
 </section>
 
@@ -1602,7 +1607,7 @@
   </div>
   <div class="close-right">
     <a href="mailto:hyeldezian@gmail.com" class="cta-link primary">hyeldezian@gmail.com <span class="arrow">↗</span></a>
-    <a href="resume.html" target="_blank" class="cta-link">View Resume <span class="arrow">↗</span></a>
+    <a href="Harlie_Yeldezian_Resume.pdf" target="_blank" class="cta-link">View Resume <span class="arrow">↗</span></a>
     <a href="https://harlieyeldezian.com" target="_blank" class="cta-link">Full Portfolio <span class="arrow">↗</span></a>
     <a href="https://linkedin.com/in/harlie-yeldezian-575410ba" target="_blank" class="cta-link">LinkedIn <span class="arrow">↗</span></a>
     <div class="wally-aside">oh, and wally has a page too: <a href="https://www.instagram.com/longboi_wally" target="_blank">@longboi_wally</a></div>
@@ -1620,6 +1625,18 @@
       if(ph) ph.style.display = 'none';
     });
   });
+
+  // creative image zoom
+  function openCreativeZoom(img) {
+    const zoom = document.getElementById('creative-zoom');
+    zoom.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCreativeZoom() {
+    document.getElementById('creative-zoom').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeCreativeZoom(); });
 
   // sticky nav — show after hero, highlight active section
   const nav = document.getElementById('stickyNav');
